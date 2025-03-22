@@ -6,10 +6,14 @@ export async function getDevices({
   page = 1,
   page_size = 10,
   search,
+  sort_by = "release_date",
+  order = "desc",
 }: {
   page: number;
   page_size: number;
   search?: string;
+  sort_by?: "device_name" | "screen_size_inches" | "release_date";
+  order?: "asc" | "desc";
 }) {
   const offset = (page - 1) * page_size;
 
@@ -26,6 +30,15 @@ export async function getDevices({
         eb(eb.fn("lower", ["brand"]), "like", `%${search.toLowerCase()}%`),
       ])
     );
+  }
+
+  // Apply sorting if sort_by parameter is provided
+  if (sort_by) {
+    if (sort_by === "device_name") {
+      query = query.orderBy((eb) => eb.fn("lower", [sort_by]), order);
+    } else {
+      query = query.orderBy(sort_by, order);
+    }
   }
 
   // Get total count for pagination metadata
