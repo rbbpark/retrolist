@@ -10,8 +10,8 @@ function createServer() {
   // Middleware
   app.use(cors());
   app.use(morgan("dev"));
+  // make body available in req
   app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
 
   // Use routes
   app.use("/", indexRoutes);
