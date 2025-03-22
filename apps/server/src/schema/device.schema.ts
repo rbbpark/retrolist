@@ -11,6 +11,7 @@ export const getDevicesSchema = z.object({
   query: z.object({
     page: stringToNumber,
     page_size: stringToNumber,
+    search: z.string().optional(),
   }),
 });
 
