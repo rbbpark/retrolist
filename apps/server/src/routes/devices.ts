@@ -1,6 +1,6 @@
 import express from "express";
 import { getDevicesHandler } from "../controllers/device.controller";
-import { getDevicesSchema } from "../schema/device.query.schema";
+import { getDevicesSchema } from "../schema/device/query.schema";
 import validateResource from "../middleware/validateResource";
 
 const router = express.Router();

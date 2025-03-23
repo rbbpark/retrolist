@@ -1,24 +1,7 @@
 import { z } from "zod";
-import { DeviceSchema } from "./device.schema";
-import { FilterField } from "../types/filter";
-
-// Standard parser for query string parameters
-const stringToBoolean = z.string().transform((val, ctx) => {
-  const normalized = val.toLowerCase();
-  if (normalized === "true") return true;
-  if (normalized === "false") return false;
-  ctx.addIssue({
-    code: z.ZodIssueCode.custom,
-    message: "Expected a boolean value",
-  });
-});
-
-const stringToNumber = z
-  .string()
-  .refine((val) => !isNaN(Number(val)), {
-    message: "Not a valid number",
-  })
-  .transform(Number);
+import { DeviceSchema } from "../device.schema";
+import { FilterField } from "../../types/filter";
+import { stringToNumber, stringToBoolean } from "../common.schema";
 
 // Reusable transformers for common field types that return FilterField objects
 const createNumberFilter = () => {
@@ -59,7 +42,7 @@ const createCompatibilityFilter = () => {
 };
 
 // Combined schema for device queries with pagination and filtering
-const DeviceQuerySchema = z
+const DevicesQuerySchema = z
   .object({
     // Pagination parameters
     page: stringToNumber.default("1"),
@@ -124,7 +107,6 @@ const DeviceQuerySchema = z
   })
   .transform((data) => {
     // Transform filters from query params into a filter array
-
     const { page, page_size, search, order, sort_by, ...rest } = data;
     let filters = { ...rest };
     let filterArray: FilterField<any>[] = [];
@@ -181,8 +163,8 @@ const DeviceQuerySchema = z
 
 // Export schema for validation middleware
 export const getDevicesSchema = z.object({
-  query: DeviceQuerySchema,
+  query: DevicesQuerySchema,
 });
 
 // Export type for controller and service usage
-export type GetDevicesInput = z.infer<typeof DeviceQuerySchema>;
+export type GetDevicesInput = z.infer<typeof DevicesQuerySchema>;

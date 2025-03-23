@@ -4,6 +4,7 @@ import { Pool } from "pg";
 import config from "config";
 import * as pg from "pg";
 
+// pg returns decimal values as string by default, return a number instead
 const NUMERIC = 1700;
 pg.types.setTypeParser(NUMERIC, (val) => {
   return parseFloat(val);
