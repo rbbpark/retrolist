@@ -1,4 +1,4 @@
-export interface Devices {
+export interface Device {
   analogs_raw: string | null;
   aspect_ratio: string;
   audio_output_raw: string | null;

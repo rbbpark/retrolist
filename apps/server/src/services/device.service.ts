@@ -2,23 +2,26 @@ import { db } from "../utils/db";
 
 // export async function findDeviceById() {}
 
+type GetDevicesInput = {
+  page: number;
+  page_size: number;
+  search?: string;
+  sort_by?: "device_name" | "screen_size_inches" | "release_date";
+  order?: "asc" | "desc";
+};
+
 export async function getDevices({
   page = 1,
   page_size = 10,
   search,
   sort_by = "release_date",
   order = "desc",
-}: {
-  page: number;
-  page_size: number;
-  search?: string;
-  sort_by?: "device_name" | "screen_size_inches" | "release_date";
-  order?: "asc" | "desc";
-}) {
+}: GetDevicesInput) {
   const offset = (page - 1) * page_size;
 
   let query = db.selectFrom("handheld_devices");
 
+  // Apply search if search parameter is provided
   if (search) {
     query = query.where((eb) =>
       eb.or([

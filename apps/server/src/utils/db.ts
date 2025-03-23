@@ -1,5 +1,5 @@
 import { Kysely, PostgresDialect } from "kysely";
-import { type DB } from "../types/db";
+import { type DB } from "../types/kysely";
 import { Pool } from "pg";
 import config from "config";
 

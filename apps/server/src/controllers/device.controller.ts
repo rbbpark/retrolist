@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetDevicesInput } from "../schema/device.schema";
+import { GetDevicesInput } from "../schema/device.query.schema";
 import { getDevices } from "../services/device.service";
 
 export const getDevicesHandler = async (req: Request, res: Response) => {
