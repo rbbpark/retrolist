@@ -48,6 +48,9 @@ const DevicesQuerySchema = z
     page: stringToNumber.default("1"),
     page_size: stringToNumber.default("10"),
 
+    // view mode
+    detail: z.enum(["compact", "full"]).default("full"),
+
     // Search
     search: z.string().optional(),
 
@@ -107,7 +110,7 @@ const DevicesQuerySchema = z
   })
   .transform((data) => {
     // Transform filters from query params into a filter array
-    const { page, page_size, search, order, sort_by, ...rest } = data;
+    const { page, page_size, detail, search, order, sort_by, ...rest } = data;
     let filters = { ...rest };
     let filterArray: FilterField<any>[] = [];
 
@@ -147,6 +150,7 @@ const DevicesQuerySchema = z
     return {
       page,
       page_size,
+      detail,
       search,
       order,
       sort_by,

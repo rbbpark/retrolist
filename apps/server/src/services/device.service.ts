@@ -7,6 +7,7 @@ import { SelectQueryBuilder, ExpressionBuilder } from "kysely";
 type GetDevicesInput = {
   page: number;
   page_size: number;
+  detail: "compact" | "full";
   search?: string;
   sort_by?: "device_name" | "screen_size_inches" | "release_date" | "price_low";
   order?: "asc" | "desc";
@@ -61,9 +62,43 @@ function applyFilters<T>(
   return result;
 }
 
+function applyDetailLevel<T>(
+  query: SelectQueryBuilder<any, any, T>,
+  detail: "compact" | "full"
+) {
+  if (detail === "compact") {
+    return query.select(["id", "device_name", "price_low", "image_id"]);
+  } else {
+    // "full" view
+    return query.select([
+      "id",
+      "device_name",
+      "brand",
+      "release_date",
+      "price_low",
+      "image_id",
+    ]);
+  }
+}
+
+function applySort<T>(
+  query: SelectQueryBuilder<any, any, T>,
+  sort_by?: "device_name" | "screen_size_inches" | "release_date" | "price_low",
+  order: "asc" | "desc" = "desc"
+) {
+  if (!sort_by) return query;
+
+  if (sort_by === "device_name") {
+    return query.orderBy((eb) => eb.fn("lower", [sort_by]), order);
+  } else {
+    return query.orderBy(sort_by, order);
+  }
+}
+
 export async function getDevices({
   page = 1,
   page_size = 10,
+  detail = "full",
   search,
   sort_by = "release_date",
   order = "desc",
@@ -73,23 +108,15 @@ export async function getDevices({
 
   // Main query for retrieving data
   let query = db.selectFrom("handheld_devices");
+  query = applyDetailLevel(query, detail);
   query = applySearch(query, search);
   query = applyFilters(query, filters);
-
-  // Apply sorting if sort_by parameter is provided
-  if (sort_by) {
-    if (sort_by === "device_name") {
-      query = query.orderBy((eb) => eb.fn("lower", [sort_by]), order);
-    } else {
-      query = query.orderBy(sort_by, order);
-    }
-  }
+  query = applySort(query, sort_by, order);
 
   // Get total count for pagination metadata
   let countQuery = db
     .selectFrom("handheld_devices")
     .select(db.fn.count("id").as("count"));
-
   countQuery = applySearch(countQuery, search);
   countQuery = applyFilters(countQuery, filters);
 
@@ -97,11 +124,7 @@ export async function getDevices({
   const total = Number(countResult?.count || 0);
 
   // Get paginated results
-  const devices = await query
-    .selectAll()
-    .limit(page_size)
-    .offset(offset)
-    .execute();
+  const devices = await query.limit(page_size).offset(offset).execute();
 
   return {
     data: devices,
