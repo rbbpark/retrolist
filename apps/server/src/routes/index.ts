@@ -8,6 +8,6 @@ router.get("/", (req, res) => {
 });
 
 // Mount device routes
-router.use("/api/devices", deviceRoutes);
+router.use("/api/device", deviceRoutes);
 
 export default router;

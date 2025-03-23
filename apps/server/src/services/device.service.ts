@@ -113,3 +113,13 @@ export async function getDevices({
     },
   };
 }
+
+export async function getDeviceById(id: string) {
+  const device = await db
+    .selectFrom("handheld_devices")
+    .selectAll()
+    .where("id", "=", id)
+    .executeTakeFirst();
+
+  return device;
+}

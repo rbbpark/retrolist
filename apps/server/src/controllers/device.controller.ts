@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { GetDevicesInput } from "../schema/device/";
-import { getDevices } from "../services/device.service";
+import { GetDeviceInput, GetDevicesInput } from "../schema/device/";
+import { getDevices, getDeviceById } from "../services/device.service";
 
 export const getDevicesHandler = async (req: Request, res: Response) => {
   const query = req.query as unknown as GetDevicesInput;
@@ -14,4 +14,13 @@ export const getDevicesHandler = async (req: Request, res: Response) => {
     filters,
   });
   return res.send(devices);
+};
+
+export const getDeviceByIdHandler = async (
+  req: Request<GetDeviceInput>,
+  res: Response
+) => {
+  const { id } = req.params;
+  const device = await getDeviceById(id);
+  return res.send(device);
 };
