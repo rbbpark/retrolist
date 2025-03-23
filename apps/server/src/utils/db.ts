@@ -2,6 +2,12 @@ import { Kysely, PostgresDialect } from "kysely";
 import { type DB } from "../types/kysely";
 import { Pool } from "pg";
 import config from "config";
+import * as pg from "pg";
+
+const NUMERIC = 1700;
+pg.types.setTypeParser(NUMERIC, (val) => {
+  return parseFloat(val);
+});
 
 export const db = new Kysely<DB>({
   dialect: new PostgresDialect({

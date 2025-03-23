@@ -64,6 +64,8 @@ const DeviceQuerySchema = z
     // Pagination parameters
     page: stringToNumber.default("1"),
     page_size: stringToNumber.default("10"),
+
+    // Search
     search: z.string().optional(),
 
     // Sorting parameters
@@ -115,25 +117,51 @@ const DeviceQuerySchema = z
     has_rumble: createBooleanFilter(),
     shell_material: createEnumFilter(DeviceSchema.shape.shell_material),
     // custom filters
-    max_screen_size: createNumberFilter(),
-    min_screen_size: createNumberFilter(),
-    max_price: createNumberFilter(),
     min_price: createNumberFilter(),
+    max_price: createNumberFilter(),
+    min_screen_size: createNumberFilter(),
+    max_screen_size: createNumberFilter(),
   })
   .transform((data) => {
-    // Extract special query params
-    const { page, page_size, search, order, sort_by, ...rest } = data;
+    // Transform filters from query params into a filter array
 
+    const { page, page_size, search, order, sort_by, ...rest } = data;
     let filters = { ...rest };
     let filterArray: FilterField<any>[] = [];
 
     for (const [key, value] of Object.entries(filters)) {
-      const filter = value;
-      filter.name = key;
-      filterArray.push(filter);
+      // handle special cases
+      if (key === "min_price") {
+        filterArray.push({
+          name: "price_low",
+          value: value.value,
+          operator: "gte",
+        } as FilterField<number>);
+      } else if (key === "max_price") {
+        filterArray.push({
+          name: "price_low",
+          value: value.value,
+          operator: "lte",
+        } as FilterField<number>);
+      } else if (key === "min_screen_size") {
+        filterArray.push({
+          name: "screen_size_inches",
+          value: value.value,
+          operator: "gte",
+        } as FilterField<number>);
+      } else if (key === "max_screen_size") {
+        filterArray.push({
+          name: "screen_size_inches",
+          value: value.value,
+          operator: "lte",
+        } as FilterField<number>);
+      } else {
+        const filter = value;
+        filter.name = key;
+        filterArray.push(filter);
+      }
     }
 
-    // group filters
     return {
       page,
       page_size,
