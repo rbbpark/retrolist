@@ -4,7 +4,7 @@ const ratingSchema = z.number().min(1).max(5);
 
 export const DeviceSchema = z.object({
   // Device identification
-  id: z.string(),
+  id: z.string().uuid(),
   image_id: z.string(),
   device_name: z.string(),
   brand: z.string(),
