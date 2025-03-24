@@ -23,5 +23,8 @@ export const getDeviceByIdHandler = async (
 ) => {
   const { id } = req.params;
   const device = await getDeviceById(id);
+  if (!device) {
+    return res.status(404).send({ message: "Route not found" });
+  }
   return res.send(device);
 };
