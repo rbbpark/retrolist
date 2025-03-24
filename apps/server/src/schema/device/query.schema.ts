@@ -29,15 +29,10 @@ const createEnumFilter = <T extends z.ZodTypeAny>(schema: T) => {
 // Custom transformers for specific filter scenarios
 const createCompatibilityFilter = () => {
   return stringToBoolean
-    .transform((val, ctx) => {
-      if (val === true) {
-        return { value: 3, operator: "gte" } as FilterField<number>;
-      }
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Value must be true",
-      });
+    .refine((val) => val === true, {
+      message: "Value must be true",
     })
+    .transform((val) => ({ value: 3, operator: "gte" }) as FilterField<number>)
     .optional();
 };
 
@@ -104,6 +99,7 @@ const DevicesQuerySchema = z
     min_screen_size: createNumberFilter(),
     max_screen_size: createNumberFilter(),
   })
+  .strict() // do not accept unexpected arguments
   .transform((data) => {
     // Transform filters from query params into a filter array
     const { page, page_size, detail, search, order, sort_by, ...rest } = data;

@@ -11,11 +11,9 @@ export const DeviceSchema = z.object({
   release_date: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid date format",
   }),
-
   // System specifications
   form_factor: z.enum(["Vertical", "Horizontal", "Clamshell"]),
   os_raw: z.string(),
-
   // Emulation (1-5 rating)
   gbc: ratingSchema,
   nes: ratingSchema,
@@ -35,7 +33,6 @@ export const DeviceSchema = z.object({
   wiiu: ratingSchema,
   switch: ratingSchema,
   ps3: ratingSchema,
-
   // SoC specifications
   chipset: z.string().nullable(),
   cpu_model: z.string().nullable(),
@@ -47,7 +44,6 @@ export const DeviceSchema = z.object({
   gpu_cores: z.string().nullable(),
   gpu_clock: z.string().nullable(),
   ram_gb: z.string().nullable(),
-
   // Display specs
   screen_size_inches: z.number(),
   screen_type: z.enum([
@@ -125,12 +121,10 @@ export const DeviceSchema = z.object({
     ])
     .nullable(),
   screen_lens: z.string().nullable(),
-
   // Hardware specs
   battery_capacity: z.string(),
   cooling_raw: z.string().nullable(),
   has_cooling: z.boolean().nullable(),
-
   // Control specs
   dpad_raw: z.enum([
     "Cross Lower placement",
@@ -153,7 +147,6 @@ export const DeviceSchema = z.object({
   has_l2_r2: z.boolean(),
   has_shoulder_buttons: z.boolean(),
   extra_buttons_raw: z.string().nullable(),
-
   // Connectivity specs
   charge_port_raw: z.string().nullable(),
   storage_raw: z.string(),
@@ -172,7 +165,6 @@ export const DeviceSchema = z.object({
   has_rumble: z.boolean().nullable(),
   sensors_raw: z.string().nullable(),
   volume_desc: z.string().nullable(),
-
   // Exterior specs
   dimensions_mm: z.string().nullable(),
   weight_g: z.number().nullable(),
@@ -184,7 +176,6 @@ export const DeviceSchema = z.object({
     "Plastic or Metal (Aluminum)",
   ]),
   color_options: z.string(),
-
   // Reviews, pricing, emulation notes
   reviews: z.string().nullable(),
   price_low: z.number(),
