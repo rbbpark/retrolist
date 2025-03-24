@@ -33,10 +33,8 @@ function applySearch<T>(
 // Helper function to apply filters
 function applyFilters<T>(
   query: SelectQueryBuilder<any, any, T>,
-  filters?: FilterField<any>[]
+  filters: FilterField<any>[]
 ) {
-  if (!filters) return query;
-
   let result = query;
   for (const filter of filters) {
     const { name, value, operator = "eq" } = filter;
@@ -94,7 +92,7 @@ export async function getDevices({
   search,
   sort_by = "release_date",
   order = "desc",
-  filters,
+  filters = [],
 }: GetDevicesInput) {
   const offset = (page - 1) * page_size;
 
