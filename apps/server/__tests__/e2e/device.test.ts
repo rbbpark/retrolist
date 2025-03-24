@@ -82,7 +82,6 @@ describe("device", () => {
           .get(`/api/device/`)
           .query(query);
         expect(statusCode).toBe(200);
-        // validate each device object
         for (const device of body.data) {
           expect(
             device.device_name.toLowerCase().includes("amber")
@@ -100,8 +99,6 @@ describe("device", () => {
           .get(`/api/device/`)
           .query(query);
         expect(statusCode).toBe(200);
-        console.log(body.data);
-        // validate each device object
         for (const device of body.data) {
           expect(device.price_low >= 30).toBeTruthy();
         }
@@ -134,7 +131,6 @@ describe("device", () => {
           .get(`/api/device/`)
           .query(query);
         expect(statusCode).toBe(200);
-        // validate each device object
         for (const device of body.data) {
           const parsed = DeviceSchemaCompact.safeParse(device);
           expect(parsed.success).toBe(true);

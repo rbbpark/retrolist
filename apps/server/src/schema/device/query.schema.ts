@@ -4,19 +4,19 @@ import { FilterField } from "../../types/filter";
 import { stringToNumber, stringToBoolean } from "../common.schema";
 
 // Reusable transformers for common field types that return FilterField objects
-const createNumberFilter = () => {
+export const createNumberFilter = () => {
   return stringToNumber
     .transform((value) => ({ value, operator: "eq" }) as FilterField<number>)
     .optional();
 };
 
-const createBooleanFilter = () => {
+export const createBooleanFilter = () => {
   return stringToBoolean
     .transform((value) => ({ value, operator: "eq" }) as FilterField<boolean>)
     .optional();
 };
 
-const createEnumFilter = <T extends z.ZodTypeAny>(schema: T) => {
+export const createEnumFilter = <T extends z.ZodTypeAny>(schema: T) => {
   return z
     .string()
     .pipe(schema)
@@ -27,7 +27,7 @@ const createEnumFilter = <T extends z.ZodTypeAny>(schema: T) => {
 };
 
 // Custom transformers for specific filter scenarios
-const createCompatibilityFilter = () => {
+export const createCompatibilityFilter = () => {
   return stringToBoolean
     .refine((val) => val === true, {
       message: "Value must be true",
