@@ -47,19 +47,15 @@ const DevicesQuerySchema = z
     // Pagination parameters
     page: stringToNumber.default("1"),
     page_size: stringToNumber.default("10"),
-
     // view mode
     detail: z.enum(["compact", "full"]).default("full"),
-
     // Search
     search: z.string().optional(),
-
     // Sorting parameters
-    order: z.enum(["asc", "desc"]).optional(),
+    order: z.enum(["asc", "desc"]).default("desc"),
     sort_by: z
       .enum(["device_name", "screen_size_inches", "release_date", "price_low"])
-      .optional(),
-
+      .default("release_date"),
     // All filterable fields
     form_factor: createEnumFilter(DeviceSchema.shape.form_factor),
     gbc: createCompatibilityFilter(),
@@ -102,7 +98,7 @@ const DevicesQuerySchema = z
     has_audio_output: createBooleanFilter(),
     has_rumble: createBooleanFilter(),
     shell_material: createEnumFilter(DeviceSchema.shape.shell_material),
-    // custom filters
+    // custom filterable fields
     min_price: createNumberFilter(),
     max_price: createNumberFilter(),
     min_screen_size: createNumberFilter(),
@@ -113,7 +109,6 @@ const DevicesQuerySchema = z
     const { page, page_size, detail, search, order, sort_by, ...rest } = data;
     let filters = { ...rest };
     let filterArray: FilterField<any>[] = [];
-
     for (const [key, value] of Object.entries(filters)) {
       // handle special cases
       if (key === "min_price") {
@@ -156,14 +151,7 @@ const DevicesQuerySchema = z
       sort_by,
       filters: filterArray,
     };
-  })
-  .refine(
-    (data) => (data.sort_by === undefined) === (data.order === undefined),
-    {
-      message: "order and sort_by must be provided together",
-      path: ["order"],
-    }
-  );
+  });
 
 // Export schema for validation middleware
 export const getDevicesSchema = z.object({

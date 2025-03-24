@@ -3,7 +3,7 @@ import {
   getDevicesHandler,
   getDeviceByIdHandler,
 } from "../controllers/device.controller";
-import { getDevicesSchema } from "../schema/device/";
+import { getDeviceSchema, getDevicesSchema } from "../schema/device/";
 import validateResource from "../middleware/validateResource";
 
 const router = express.Router();
@@ -12,6 +12,6 @@ const router = express.Router();
 router.get("/", validateResource(getDevicesSchema), getDevicesHandler);
 
 // Get a specific device by ID
-router.get("/:id", getDeviceByIdHandler);
+router.get("/:id", validateResource(getDeviceSchema), getDeviceByIdHandler);
 
 export default router;

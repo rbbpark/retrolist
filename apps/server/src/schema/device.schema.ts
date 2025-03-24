@@ -4,11 +4,13 @@ const ratingSchema = z.number().min(1).max(5);
 
 export const DeviceSchema = z.object({
   // Device identification
-  id: z.string().uuid(),
+  id: z.string(),
   image_id: z.string(),
   device_name: z.string(),
   brand: z.string(),
-  release_date: z.date(),
+  release_date: z.string().refine((val) => !isNaN(Date.parse(val)), {
+    message: "Invalid date format",
+  }),
 
   // System specifications
   form_factor: z.enum(["Vertical", "Horizontal", "Clamshell"]),
@@ -192,3 +194,19 @@ export const DeviceSchema = z.object({
 
 // Export the type from the schema
 export type Device = z.infer<typeof DeviceSchema>;
+
+export const DeviceSchemaCompact = DeviceSchema.pick({
+  id: true,
+  device_name: true,
+  price_low: true,
+  image_id: true,
+});
+
+export const DeviceSchemaFull = DeviceSchema.pick({
+  id: true,
+  device_name: true,
+  brand: true,
+  release_date: true,
+  price_low: true,
+  image_id: true,
+});

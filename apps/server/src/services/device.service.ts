@@ -1,6 +1,7 @@
 import { db } from "../utils/db";
 import { FilterField } from "../types/filter";
-import { SelectQueryBuilder, ExpressionBuilder } from "kysely";
+import { SelectQueryBuilder } from "kysely";
+import { DeviceSchemaCompact, DeviceSchemaFull } from "../schema/device.schema";
 
 // export async function findDeviceById() {}
 
@@ -66,19 +67,10 @@ function applyDetailLevel<T>(
   query: SelectQueryBuilder<any, any, T>,
   detail: "compact" | "full"
 ) {
-  if (detail === "compact") {
-    return query.select(["id", "device_name", "price_low", "image_id"]);
-  } else {
-    // "full" view
-    return query.select([
-      "id",
-      "device_name",
-      "brand",
-      "release_date",
-      "price_low",
-      "image_id",
-    ]);
-  }
+  const keys = Object.keys(
+    detail === "compact" ? DeviceSchemaCompact.shape : DeviceSchemaFull.shape
+  );
+  return query.select(keys);
 }
 
 function applySort<T>(

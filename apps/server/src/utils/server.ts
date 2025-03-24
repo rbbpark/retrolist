@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import morgan from "morgan";
-import indexRoutes from "../routes/index";
+import indexRoutes from "../routes/";
 import config from "config";
 
 function createServer() {
@@ -24,7 +24,6 @@ function createServer() {
   // Error handling middleware
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-    console.error(err.stack);
     res.status(statusCode).json({
       message: err.message,
       stack: config.get("NODE_ENV") === "production" ? "🥞" : err.stack,
