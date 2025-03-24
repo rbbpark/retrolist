@@ -4,7 +4,7 @@ import {
   stringToBoolean,
   stringToNumber,
 } from "../../../src/schema/common.schema";
-import { DeviceSchema } from "../../../src/schema/device.schema";
+import { DeviceSchema } from "@retrolist/shared";
 import {
   createBooleanFilter,
   createEnumFilter,

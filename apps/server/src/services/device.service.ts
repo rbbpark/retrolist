@@ -1,7 +1,7 @@
 import { db } from "../utils/db";
 import { FilterField } from "../types/filter";
 import { SelectQueryBuilder } from "kysely";
-import { DeviceSchemaCompact, DeviceSchemaFull } from "../schema/device.schema";
+import { DeviceSchemaCompact, DeviceSchemaFull } from "@retrolist/shared";
 
 // export async function findDeviceById() {}
 

@@ -3,7 +3,7 @@ import {
   getDevicesHandler,
   getDeviceByIdHandler,
 } from "../controllers/device.controller";
-import { getDeviceSchema, getDevicesSchema } from "../schema/device/";
+import { getDeviceSchema, getDevicesSchema } from "../schema/device.schema";
 import validateResource from "../middleware/validateResource";
 
 const router = express.Router();

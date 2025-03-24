@@ -4,7 +4,7 @@ import {
   DeviceSchema,
   DeviceSchemaCompact,
   DeviceSchemaFull,
-} from "../../src/schema/device.schema";
+} from "@retrolist/shared";
 
 const app = createServer();
 
