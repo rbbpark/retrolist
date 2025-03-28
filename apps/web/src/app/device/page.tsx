@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { Input } from "@/components/ui/input";
 import { SelectDemo } from "@/components/app-select";
 import { PaginationDemo } from "@/components/pagination-demo";
+import { DeviceGrid } from "@/components/device/device-grid";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -17,9 +19,9 @@ export default function Page() {
           <SelectDemo />
         </div>
         <div className="flex flex-1 flex-row flex-wrap gap-4 p-4">
-          {Array.from({ length: 16 }).map((_, i) => (
-            <DeviceCard />
-          ))}
+          <Suspense>
+            <DeviceGrid />
+          </Suspense>
           <PaginationDemo />
         </div>
       </main>

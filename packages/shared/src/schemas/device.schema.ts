@@ -192,6 +192,7 @@ export const DeviceSchemaCompact = DeviceSchema.pick({
   price_low: true,
   image_id: true,
 });
+export type DeviceCompactView = z.infer<typeof DeviceSchemaFull>;
 
 export const DeviceSchemaFull = DeviceSchema.pick({
   id: true,
@@ -201,3 +202,26 @@ export const DeviceSchemaFull = DeviceSchema.pick({
   price_low: true,
   image_id: true,
 });
+export type DeviceFullView = z.infer<typeof DeviceSchemaFull>;
+
+export const GetDevicesResponseSchema = z.object({
+  data: z.union([z.array(DeviceSchemaFull), z.array(DeviceSchemaCompact)]),
+  pagination: z.object({
+    total: z.number(),
+    page: z.number(),
+    page_size: z.number(),
+    pages: z.number(),
+  }),
+});
+
+export const GetDevicesCompactResponseSchema = z.object({
+  data: z.array(DeviceSchemaCompact),
+  pagination: z.object({
+    total: z.number(),
+    page: z.number(),
+    page_size: z.number(),
+    pages: z.number(),
+  }),
+});
+
+export type GetDevicesResponseType = z.infer<typeof GetDevicesResponseSchema>;
