@@ -2,13 +2,27 @@ import { fetchDevices } from "@/lib/data";
 import { DeviceCompactView, DeviceFullView } from "@retrolist/shared";
 import React from "react";
 import { DeviceCardFull } from "./device-card-full";
+import { AppPagination } from "../app-pagination";
 
-export async function DeviceGrid() {
-  const response = await fetchDevices();
+export async function DeviceGrid({
+  page = 1,
+  pageSize = 10,
+}: {
+  page?: number;
+  pageSize?: number;
+}) {
+  const response = await fetchDevices({ page, pageSize });
 
   if (response.data.length === 0) {
     return <div>No devices found</div>;
   }
+
+  const paginationData = {
+    total: response.pagination.total,
+    page: response.pagination.page,
+    pageSize: response.pagination.page_size,
+    pages: response.pagination.pages,
+  };
 
   const isFullMode = "brand" in response.data[0];
 
@@ -19,6 +33,10 @@ export async function DeviceGrid() {
         {fullDevices.map((device: DeviceFullView) => (
           <DeviceCardFull device={device} key={device.id} />
         ))}
+        <AppPagination
+          page={paginationData.page}
+          pages={paginationData.pages}
+        />
       </div>
     );
   } else {
