@@ -1,5 +1,3 @@
-import { TooltipDemo } from "@/components/tooltip-badge";
-import { DeviceCard } from "@/components/device-card";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
@@ -9,7 +7,13 @@ import { PaginationDemo } from "@/components/pagination-demo";
 import { DeviceGrid } from "@/components/device/device-grid";
 import { Suspense } from "react";
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  console.log(searchParams);
+
   return (
     <SidebarProvider>
       <main className="flex flex-1 flex-col">

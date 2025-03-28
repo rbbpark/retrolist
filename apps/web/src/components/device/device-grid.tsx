@@ -22,6 +22,7 @@ export async function DeviceGrid() {
       </div>
     );
   } else {
+    // TODO compact mode
     const compactDevices = response.data as DeviceCompactView[];
   }
 
