@@ -1,1 +1,1 @@
-export * from "./device.schema";
+export * from "./device";

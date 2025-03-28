@@ -1,14 +1,14 @@
 import { db } from "../utils/db";
-import { FilterField } from "../types/filter";
+import { FilterField } from "@retrolist/shared/src/types/filter";
 import { SelectQueryBuilder } from "kysely";
 import { DeviceSchemaCompact, DeviceSchemaFull } from "@retrolist/shared";
 
 // export async function findDeviceById() {}
 
 type GetDevicesInput = {
-  page: number;
-  page_size: number;
-  detail: "compact" | "full";
+  page?: number;
+  page_size?: number;
+  detail?: "compact" | "full";
   search?: string;
   sort_by?: "device_name" | "screen_size_inches" | "release_date" | "price_low";
   order?: "asc" | "desc";

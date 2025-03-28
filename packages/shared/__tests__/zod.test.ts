@@ -1,24 +1,11 @@
-import { z } from "zod";
-import { FilterField } from "../../../src/types/filter";
-import {
-  stringToBoolean,
-  stringToNumber,
-} from "../../../src/schema/common.schema";
-import { DeviceSchema } from "@retrolist/shared";
+import { stringToBoolean, stringToNumber } from "../src/schemas/utils.schema";
 import {
   createBooleanFilter,
   createEnumFilter,
   createNumberFilter,
-} from "../../../src/schema/device";
-
-const createCompatibilityFilter = () => {
-  return stringToBoolean
-    .refine((val) => val === true, {
-      message: "Value must be true",
-    })
-    .transform((val) => ({ value: 3, operator: "gte" }) as FilterField<number>)
-    .optional();
-};
+  createCompatibilityFilter,
+  DeviceSchema,
+} from "../src/schemas/device";
 
 describe("Common Schema Transforms", () => {
   describe("stringToBoolean", () => {
