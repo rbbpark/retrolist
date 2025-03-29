@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { DevicesQuerySchemaType } from "@retrolist/shared";
-
 import {
   Select,
   SelectContent,
@@ -44,26 +43,16 @@ const sortOptions: SortOption[] = [
 ];
 
 export function SortSelect({ sortBy, order }: Props) {
-  // const [sort, setSort] = useState<SortOption>();
-  const [sort, setSort] = useState<SortOption>();
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  useEffect(() => {
-    if (sortBy && order) {
-      setSort(
-        sortOptions.find(
-          (option) => option.sortBy === sortBy && option.order === order
-        )
-      );
-    }
-  }, [sortBy, order]);
+  const initialSort = sortOptions.find(
+    (option) => option.sortBy === sortBy && option.order === order
+  );
 
   const handleValueChange = (value: string) => {
     const selectedOption = sortOptions.find((option) => option.label === value);
-    // setSort(selectedOption);
 
     if (!selectedOption) {
       throw new Error("Selected option not found, this is unexpected");
@@ -79,7 +68,7 @@ export function SortSelect({ sortBy, order }: Props) {
   };
 
   return (
-    <Select onValueChange={handleValueChange} value={sort?.label}>
+    <Select onValueChange={handleValueChange} value={initialSort?.label}>
       <SelectTrigger className="w-[200px]">
         <SelectValue placeholder="Sort" />
       </SelectTrigger>
