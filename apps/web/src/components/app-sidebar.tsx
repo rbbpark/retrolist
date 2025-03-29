@@ -8,18 +8,27 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { RadioFilterSidebarGroup } from "./sidebar/radio-filter-sidebar-group";
-import { DeviceSchema } from "@retrolist/shared";
+import { DeviceSchema, FilterField } from "@retrolist/shared";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  filters,
+}: {
+  filters: FilterField<string | number | boolean>[];
+}) {
+  function getFilterValue(id: string): string | undefined {
+    const filter = filters.find((filter) => filter.name === id);
+    return filter ? filter.value.toString() : undefined;
+  }
+
   return (
-    <Sidebar {...props}>
+    <Sidebar>
       <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
       <SidebarContent className="gap-0">
         <RadioFilterSidebarGroup
           title="Form Factor"
           id="form_factor"
           options={DeviceSchema.shape.form_factor.options}
-          value=""
+          value={getFilterValue("form_factor")}
         />
       </SidebarContent>
       <SidebarRail />

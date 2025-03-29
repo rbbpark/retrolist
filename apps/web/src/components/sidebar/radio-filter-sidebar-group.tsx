@@ -14,15 +14,37 @@ import {
 import { ChevronRight } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 type Props = {
   title: string;
   id: string;
   options: string[];
-  value: string;
+  value?: string;
 };
 
-export function RadioFilterSidebarGroup({ title, id, options, value }: Props) {
+export function RadioFilterSidebarGroup({
+  title,
+  id,
+  options,
+  value = "none",
+}: Props) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+
+  function handleValueChange(value: string) {
+    // update URL
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    if (value === "none") {
+      params.delete(id);
+    } else {
+      params.set(id, value);
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <Collapsible title={id} defaultOpen className="group/collapsible">
       <SidebarGroup>
@@ -38,9 +60,13 @@ export function RadioFilterSidebarGroup({ title, id, options, value }: Props) {
 
         <CollapsibleContent>
           <SidebarGroupContent>
-            <RadioGroup className="m-2" defaultValue="option-one">
+            <RadioGroup
+              className="m-2"
+              defaultValue={value}
+              onValueChange={handleValueChange}
+            >
               {options.map((option) => (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2" key={option}>
                   <RadioGroupItem value={option} id={option} />
                   <Label htmlFor={option}>{option}</Label>
                 </div>

@@ -23,7 +23,7 @@ export default async function Page(props: {
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar filters={filters} />
       <main className="flex flex-1 flex-col">
         <SiteHeader />
         <div className="m-4 flex flex-wrap justify-between gap-4">
