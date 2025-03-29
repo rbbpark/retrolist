@@ -148,3 +148,5 @@ export const DevicesQuerySchema = z
       filters: filterArray,
     };
   });
+
+export type DevicesQuerySchemaType = z.infer<typeof DevicesQuerySchema>;
