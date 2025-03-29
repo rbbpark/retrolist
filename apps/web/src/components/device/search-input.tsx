@@ -28,7 +28,7 @@ export function SearchInput({ searchText }: { searchText?: string }) {
 
   return (
     <div className="flex flex-row gap-2">
-      <div className="relative w-[400px]">
+      <div className="relative w-[450px]">
         <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
         <Input
           className="w-full pl-9"

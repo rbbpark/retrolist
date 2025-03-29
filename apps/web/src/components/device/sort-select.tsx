@@ -51,6 +51,8 @@ export function SortSelect({ sortBy, order }: Props) {
     (option) => option.sortBy === sortBy && option.order === order
   );
 
+  console.log(initialSort);
+
   const handleValueChange = (value: string) => {
     const selectedOption = sortOptions.find((option) => option.label === value);
 
@@ -68,8 +70,11 @@ export function SortSelect({ sortBy, order }: Props) {
   };
 
   return (
-    <Select onValueChange={handleValueChange} value={initialSort?.label}>
-      <SelectTrigger className="w-[200px]">
+    <Select
+      onValueChange={handleValueChange}
+      value={initialSort ? initialSort.label : ""}
+    >
+      <SelectTrigger className="w-[190px]">
         <SelectValue placeholder="Sort" />
       </SelectTrigger>
       <SelectContent>

@@ -12,13 +12,12 @@ import {
 } from "@/components/ui/pagination";
 import { generatePagination } from "@/lib/utils";
 
-export function AppPagination({
-  page,
-  pages,
-}: {
+type Props = {
   page: number;
   pages: number;
-}) {
+} & React.ComponentProps<typeof Pagination>;
+
+export function AppPagination({ page, pages, ...props }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const allPages = generatePagination(page, pages);
@@ -30,7 +29,7 @@ export function AppPagination({
   };
 
   return (
-    <Pagination>
+    <Pagination {...props}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

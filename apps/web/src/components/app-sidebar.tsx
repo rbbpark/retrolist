@@ -24,6 +24,8 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Label } from "./ui/label";
 
 // This is sample data.
 const data = {
@@ -158,7 +160,15 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Contribution Guide",
+          title: "ASDSASD",
+          url: "#",
+        },
+        {
+          title: "TEEEE",
+          url: "#",
+        },
+        {
+          title: "ASDA",
           url: "#",
         },
       ],
@@ -166,11 +176,45 @@ const data = {
   ],
 };
 
+const test = [{}];
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
-      <SidebarHeader>Filters</SidebarHeader>
+      <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
       <SidebarContent className="gap-0">
+        <Collapsible
+          title={"form_factor"}
+          defaultOpen
+          className="group/collapsible"
+        >
+          <SidebarGroup>
+            <SidebarGroupLabel
+              asChild
+              className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+            >
+              <CollapsibleTrigger>
+                {"Form Factor"}{" "}
+                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <RadioGroup className="m-2" defaultValue="option-one">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option-one" id="option-one" />
+                    <Label htmlFor="option-one">Option One</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option-two" id="option-two" />
+                    <Label htmlFor="option-two">Option Two</Label>
+                  </div>
+                </RadioGroup>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
         {/* We create a collapsible SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <Collapsible

@@ -24,11 +24,14 @@ export async function DeviceGrid({ queryString }: { queryString: string }) {
   if (isFullMode) {
     const fullDevices = response.data as DeviceFullView[];
     return (
-      <div className="flex flex-row flex-wrap gap-4">
-        {fullDevices.map((device: DeviceFullView) => (
-          <DeviceCardFull device={device} key={device.id} />
-        ))}
+      <div className="flex flex-col">
+        <div className="flex flex-grow flex-row flex-wrap gap-4">
+          {fullDevices.map((device: DeviceFullView) => (
+            <DeviceCardFull device={device} key={device.id} />
+          ))}
+        </div>
         <AppPagination
+          className="my-4"
           page={paginationData.page}
           pages={paginationData.pages}
         />

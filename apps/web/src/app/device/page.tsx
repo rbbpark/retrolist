@@ -18,14 +18,15 @@ export default async function Page(props: {
     DevicesQuerySchema.parse(searchParams);
 
   const queryString = getQueryString(searchParams);
-  console.log(searchParams);
-  console.log(queryString);
+
+  console.log(filters);
 
   return (
     <SidebarProvider>
+      <AppSidebar />
       <main className="flex flex-1 flex-col">
         <SiteHeader />
-        <div className="m-4 flex justify-center gap-4">
+        <div className="m-4 flex flex-wrap justify-between gap-4">
           <SearchInput searchText={search} />
           <SortSelect sortBy={sort_by} order={order} />
         </div>
@@ -36,8 +37,6 @@ export default async function Page(props: {
           </Suspense>
         </div>
       </main>
-      {/* Pass filters to Sidebar */}
-      <AppSidebar side="right" />
     </SidebarProvider>
   );
 }
