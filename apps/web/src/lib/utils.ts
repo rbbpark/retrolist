@@ -37,3 +37,9 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     totalPages,
   ];
 };
+
+export const getQueryString = (searchParams: {
+  [key: string]: string | string[] | undefined;
+}): string => {
+  return new URLSearchParams(searchParams as Record<string, string>).toString();
+};

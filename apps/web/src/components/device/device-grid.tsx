@@ -4,16 +4,11 @@ import React from "react";
 import { DeviceCardFull } from "./device-card-full";
 import { AppPagination } from "../app-pagination";
 
-export async function DeviceGrid({
-  page = 1,
-  pageSize = 10,
-}: {
-  page?: number;
-  pageSize?: number;
-}) {
-  const response = await fetchDevices({ page, pageSize });
+export async function DeviceGrid({ queryString }: { queryString: string }) {
+  const response = await fetchDevices(queryString);
 
   if (response.data.length === 0) {
+    // TODO
     return <div>No devices found</div>;
   }
 

@@ -3,23 +3,15 @@ import {
   GetDevicesResponseType,
 } from "@retrolist/shared";
 
-export async function fetchDevices({
-  page,
-  pageSize,
-}: {
-  page: number;
-  pageSize: number;
-}): Promise<GetDevicesResponseType> {
+export async function fetchDevices(
+  queryString: string
+): Promise<GetDevicesResponseType> {
   try {
     console.log("Fetching devices data...");
-    const queryParams = new URLSearchParams({
-      page: page + "",
-      page_size: pageSize + "",
-    });
 
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const response = await fetch(
-      `http://localhost:3001/api/device?${queryParams.toString()}`
+      `http://localhost:3001/api/device?${queryString}`
     );
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);

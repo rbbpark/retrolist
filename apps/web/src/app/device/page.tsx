@@ -7,14 +7,19 @@ import { DeviceGrid } from "@/components/device/device-grid";
 import { Suspense } from "react";
 
 import { DevicesQuerySchema } from "@retrolist/shared";
+import { getQueryString } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Page(props: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const searchParams = await props.searchParams;
-  console.log(searchParams);
   const { page, page_size, detail, search, sort_by, order, filters } =
     DevicesQuerySchema.parse(searchParams);
+
+  const queryString = getQueryString(searchParams);
+  console.log(searchParams);
+  console.log(queryString);
 
   return (
     <SidebarProvider>
@@ -25,8 +30,9 @@ export default async function Page(props: {
           <SelectDemo />
         </div>
         <div className="flex flex-1 flex-row flex-wrap gap-4 p-4">
-          <Suspense>
-            <DeviceGrid page={page} pageSize={page_size} />
+          {/* TODO loading skeleton */}
+          <Suspense fallback={<Skeleton className="h-[250px] w-[250px]" />}>
+            <DeviceGrid queryString={queryString} />
           </Suspense>
         </div>
       </main>
