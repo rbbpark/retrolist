@@ -46,7 +46,7 @@ export function RadioFilterSidebarGroup({
   }
 
   return (
-    <Collapsible title={id} defaultOpen className="group/collapsible">
+    <Collapsible title={id} defaultOpen={false} className="group/collapsible">
       <SidebarGroup>
         <SidebarGroupLabel
           asChild
@@ -65,16 +65,16 @@ export function RadioFilterSidebarGroup({
               defaultValue={value}
               onValueChange={handleValueChange}
             >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value={"none"} id={"none"} />
+                <Label htmlFor={"none"}>{"None"}</Label>
+              </div>
               {options.map((option) => (
                 <div className="flex items-center space-x-2" key={option}>
                   <RadioGroupItem value={option} id={option} />
                   <Label htmlFor={option}>{option}</Label>
                 </div>
               ))}
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value={"none"} id={"none"} />
-                <Label htmlFor={"none"}>{"None"}</Label>
-              </div>
             </RadioGroup>
           </SidebarGroupContent>
         </CollapsibleContent>
