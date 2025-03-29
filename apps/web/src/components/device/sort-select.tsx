@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 type Props = {
   sortBy: DevicesQuerySchemaType["sort_by"];
@@ -19,8 +20,8 @@ type Props = {
 
 type SortOption = {
   label: string;
-  sortBy: DevicesQuerySchemaType["sort_by"];
-  order: DevicesQuerySchemaType["order"];
+  sortBy: NonNullable<DevicesQuerySchemaType["sort_by"]>;
+  order: NonNullable<DevicesQuerySchemaType["order"]>;
 };
 
 const sortOptions: SortOption[] = [
@@ -43,7 +44,12 @@ const sortOptions: SortOption[] = [
 ];
 
 export function SortSelect({ sortBy, order }: Props) {
+  // const [sort, setSort] = useState<SortOption>();
   const [sort, setSort] = useState<SortOption>();
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
 
   useEffect(() => {
     if (sortBy && order) {
@@ -56,7 +62,20 @@ export function SortSelect({ sortBy, order }: Props) {
   }, [sortBy, order]);
 
   const handleValueChange = (value: string) => {
-    setSort(sortOptions.find((option) => option.label === value));
+    const selectedOption = sortOptions.find((option) => option.label === value);
+    // setSort(selectedOption);
+
+    if (!selectedOption) {
+      throw new Error("Selected option not found, this is unexpected");
+    }
+
+    // update URL
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    params.set("sort_by", selectedOption.sortBy);
+    params.set("order", selectedOption.order);
+    console.log(params.toString());
+    replace(`${pathname}?${params.toString()}`);
   };
 
   return (
