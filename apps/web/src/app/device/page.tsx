@@ -1,10 +1,10 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
-import { Input } from "@/components/ui/input";
 import { SortSelect } from "@/components/device/sort-select";
 import { DeviceGrid } from "@/components/device/device-grid";
 import { Suspense } from "react";
+import { SearchInput } from "@/components/device/search-input";
 
 import { DevicesQuerySchema } from "@retrolist/shared";
 import { getQueryString } from "@/lib/utils";
@@ -26,7 +26,7 @@ export default async function Page(props: {
       <main className="flex flex-1 flex-col">
         <SiteHeader />
         <div className="m-4 flex justify-center gap-4">
-          <Input className="w-96" />
+          <SearchInput searchText={search} />
           <SortSelect sortBy={sort_by} order={order} />
         </div>
         <div className="flex flex-1 flex-row flex-wrap gap-4 p-4">
