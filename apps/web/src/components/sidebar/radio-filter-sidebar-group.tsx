@@ -62,12 +62,12 @@ export function RadioFilterSidebarGroup({
           <SidebarGroupContent>
             <RadioGroup
               className="m-2"
-              defaultValue={value}
+              value={value}
               onValueChange={handleValueChange}
             >
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value={"none"} id={"none"} />
-                <Label htmlFor={"none"}>{"None"}</Label>
+                <RadioGroupItem value={"none"} id={`${id}:none`} />
+                <Label htmlFor={`${id}:none`}>{"None"}</Label>
               </div>
               {options.map((option) => (
                 <div className="flex items-center space-x-2" key={option}>

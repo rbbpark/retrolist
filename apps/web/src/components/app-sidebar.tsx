@@ -4,12 +4,19 @@ import * as React from "react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { RadioFilterSidebarGroup } from "./sidebar/radio-filter-sidebar-group";
 import { DeviceSchema, FilterField } from "@retrolist/shared";
 import { CheckboxFilterSidebarGroup } from "./sidebar/checkbox-filter-sidebar-group";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 export function AppSidebar({
   filters,
@@ -167,6 +174,18 @@ export function AppSidebar({
           value={getFilterValue("screen_type")}
         />
       </SidebarContent>
+      {filters.length > 0 && (
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem className="flex justify-center">
+              <Button>
+                <Link href="/device">Reset filters</Link>
+              </Button>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      )}
+
       <SidebarRail />
     </Sidebar>
   );
