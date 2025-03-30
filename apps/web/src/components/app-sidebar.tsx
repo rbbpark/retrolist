@@ -16,6 +16,7 @@ import { CheckboxFilterSidebarGroup } from "./sidebar/checkbox-filter-sidebar-gr
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { PriceSliderSidebarGroup } from "./sidebar/price-slider-sidebar-group";
+import { ScreenSizeSliderSidebarGroup } from "./sidebar/screen-size-slider-sidebar-group";
 
 export function AppSidebar({
   filters,
@@ -35,7 +36,7 @@ export function AppSidebar({
     return false;
   }
 
-  function getFilterPriceRangeValues(): {
+  function getPriceRangeValues(): {
     min_price?: number;
     max_price?: number;
   } {
@@ -47,6 +48,27 @@ export function AppSidebar({
         }
         if (filter.operator === "lte") {
           result.max_price = filter.value;
+        }
+      }
+    });
+    return result;
+  }
+
+  function getScreenSizeRangeValues(): {
+    min_screen_size?: number;
+    max_screen_size?: number;
+  } {
+    const result: { min_screen_size?: number; max_screen_size?: number } = {};
+    filters.map((filter) => {
+      if (
+        typeof filter.value === "number" &&
+        filter.name === "screen_size_inches"
+      ) {
+        if (filter.operator === "gte") {
+          result.min_screen_size = filter.value;
+        }
+        if (filter.operator === "lte") {
+          result.max_screen_size = filter.value;
         }
       }
     });
@@ -132,7 +154,10 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
       <SidebarContent className="gap-0 pb-32">
-        <PriceSliderSidebarGroup prices={getFilterPriceRangeValues()} />
+        <PriceSliderSidebarGroup prices={getPriceRangeValues()} />
+        <ScreenSizeSliderSidebarGroup
+          screenSizes={getScreenSizeRangeValues()}
+        />
 
         <RadioFilterSidebarGroup
           title="Form Factor"
@@ -198,7 +223,7 @@ export function AppSidebar({
           <SidebarMenu>
             <SidebarMenuItem className="flex justify-center">
               <Button>
-                <Link href="/device">Reset filters</Link>
+                <Link href="/device">{`Reset filters (${filters.length})`}</Link>
               </Button>
             </SidebarMenuItem>
           </SidebarMenu>

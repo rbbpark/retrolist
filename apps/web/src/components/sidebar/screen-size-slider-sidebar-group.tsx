@@ -18,32 +18,32 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 type Props = {
-  prices: {
-    min_price?: number;
-    max_price?: number;
+  screenSizes: {
+    min_screen_size?: number;
+    max_screen_size?: number;
   };
 };
 
-export function PriceSliderSidebarGroup({ prices }: Props) {
+export function ScreenSizeSliderSidebarGroup({ screenSizes }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
   const MIN = 0;
-  const MAX = 550;
-  const STEPS = 50;
-  const title = "Price (USD)";
+  const MAX = 10.5;
+  const STEPS = 0.5;
+  const title = "Screen Size (in)";
 
-  const [low, setLow] = useState(prices.min_price ?? MIN);
-  const [high, setHigh] = useState(prices.max_price ?? MAX);
+  const [low, setLow] = useState(screenSizes.min_screen_size ?? MIN);
+  const [high, setHigh] = useState(screenSizes.max_screen_size ?? MAX);
 
   const [lowInputValue, setLowInputValue] = useState("");
   const [highInputValue, setHighInputValue] = useState("");
 
   useEffect(() => {
-    setLow(prices.min_price ?? MIN);
-    setHigh(prices.max_price ?? MAX);
-  }, [prices]);
+    setLow(screenSizes.min_screen_size ?? MIN);
+    setHigh(screenSizes.max_screen_size ?? MAX);
+  }, [screenSizes]);
 
   useEffect(() => {
     if (low === MIN) {
@@ -67,13 +67,13 @@ export function PriceSliderSidebarGroup({ prices }: Props) {
     // update URL
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
-    params.delete("min_price");
-    params.delete("max_price");
+    params.delete("min_screen_size");
+    params.delete("max_screen_size");
     if (lowInputValue !== "") {
-      params.set("min_price", lowInputValue);
+      params.set("min_screen_size", lowInputValue);
     }
     if (highInputValue !== "") {
-      params.set("max_price", highInputValue);
+      params.set("max_screen_size", highInputValue);
     }
     replace(`${pathname}?${params.toString()}`);
   }
