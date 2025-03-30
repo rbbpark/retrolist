@@ -7,7 +7,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
@@ -16,7 +15,7 @@ import { DeviceSchema, FilterField } from "@retrolist/shared";
 import { CheckboxFilterSidebarGroup } from "./sidebar/checkbox-filter-sidebar-group";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Plus } from "lucide-react";
+import { SliderSidebarGroup } from "./sidebar/slider-sidebar-group";
 
 export function AppSidebar({
   filters,
@@ -34,6 +33,13 @@ export function AppSidebar({
       return filter.value;
     }
     return false;
+  }
+
+  function getFilterPriceRangeValues() {
+    const priceFilters = filters
+      .filter((filter) => filter.name === "price_low")
+      .map((filter) => {});
+    priceFilters;
   }
 
   const controlOptions: CheckboxFilterOption[] = [
@@ -115,6 +121,7 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
       <SidebarContent className="gap-0 pb-32">
+        <SliderSidebarGroup title="Price" />
         <RadioFilterSidebarGroup
           title="Form Factor"
           id="form_factor"

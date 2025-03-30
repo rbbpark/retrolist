@@ -2,5 +2,5 @@
 export type FilterField<T> = {
   name: string;
   value: T;
-  operator?: "eq" | "gt" | "lt" | "gte" | "lte";
+  operator: "eq" | "gt" | "lt" | "gte" | "lte";
 };
