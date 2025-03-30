@@ -50,9 +50,6 @@ export function SortSelect({ sortBy, order }: Props) {
   const initialSort = sortOptions.find(
     (option) => option.sortBy === sortBy && option.order === order
   );
-
-  console.log(initialSort);
-
   const handleValueChange = (value: string) => {
     const selectedOption = sortOptions.find((option) => option.label === value);
 
@@ -65,7 +62,6 @@ export function SortSelect({ sortBy, order }: Props) {
     params.set("page", "1");
     params.set("sort_by", selectedOption.sortBy);
     params.set("order", selectedOption.order);
-    console.log(params.toString());
     replace(`${pathname}?${params.toString()}`);
   };
 

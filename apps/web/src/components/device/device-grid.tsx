@@ -42,6 +42,5 @@ export async function DeviceGrid({ queryString }: { queryString: string }) {
     const compactDevices = response.data as DeviceCompactView[];
   }
 
-  // console.log(data);
   return <div>device-grid</div>;
 }

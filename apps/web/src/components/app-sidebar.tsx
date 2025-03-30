@@ -40,7 +40,6 @@ export function AppSidebar({
     max_price?: number;
   } {
     const result: { min_price?: number; max_price?: number } = {};
-
     filters.map((filter) => {
       if (typeof filter.value === "number" && filter.name === "price_low") {
         if (filter.operator === "gte") {
@@ -51,9 +50,6 @@ export function AppSidebar({
         }
       }
     });
-
-    console.log("test", result);
-
     return result;
   }
 
