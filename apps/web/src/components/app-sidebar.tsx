@@ -15,7 +15,7 @@ import { DeviceSchema, FilterField } from "@retrolist/shared";
 import { CheckboxFilterSidebarGroup } from "./sidebar/checkbox-filter-sidebar-group";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { SliderSidebarGroup } from "./sidebar/slider-sidebar-group";
+import { PriceSliderSidebarGroup } from "./sidebar/price-slider-sidebar-group";
 
 export function AppSidebar({
   filters,
@@ -35,11 +35,26 @@ export function AppSidebar({
     return false;
   }
 
-  function getFilterPriceRangeValues() {
-    const priceFilters = filters
-      .filter((filter) => filter.name === "price_low")
-      .map((filter) => {});
-    priceFilters;
+  function getFilterPriceRangeValues(): {
+    min_price?: number;
+    max_price?: number;
+  } {
+    const result: { min_price?: number; max_price?: number } = {};
+
+    filters.map((filter) => {
+      if (typeof filter.value === "number" && filter.name === "price_low") {
+        if (filter.operator === "gte") {
+          result.min_price = filter.value;
+        }
+        if (filter.operator === "lte") {
+          result.max_price = filter.value;
+        }
+      }
+    });
+
+    console.log("test", result);
+
+    return result;
   }
 
   const controlOptions: CheckboxFilterOption[] = [
@@ -121,7 +136,8 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
       <SidebarContent className="gap-0 pb-32">
-        <SliderSidebarGroup title="Price" />
+        <PriceSliderSidebarGroup prices={getFilterPriceRangeValues()} />
+
         <RadioFilterSidebarGroup
           title="Form Factor"
           id="form_factor"

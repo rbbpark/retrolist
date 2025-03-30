@@ -18,10 +18,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 type Props = {
-  title: string;
+  prices: {
+    min_price?: number;
+    max_price?: number;
+  };
 };
 
-export function SliderSidebarGroup({ title }: Props) {
+export function PriceSliderSidebarGroup({ prices }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -30,11 +33,16 @@ export function SliderSidebarGroup({ title }: Props) {
   const MAX = 550;
   const STEPS = 50;
 
-  const [low, setLow] = useState(MIN);
-  const [high, setHigh] = useState(MAX);
+  const [low, setLow] = useState(prices.min_price ?? MIN);
+  const [high, setHigh] = useState(prices.max_price ?? MAX);
 
   const [lowInputValue, setLowInputValue] = useState("");
   const [highInputValue, setHighInputValue] = useState("");
+
+  useEffect(() => {
+    setLow(prices.min_price ?? MIN);
+    setHigh(prices.max_price ?? MAX);
+  }, [prices]);
 
   useEffect(() => {
     if (low === MIN) {
@@ -71,7 +79,7 @@ export function SliderSidebarGroup({ title }: Props) {
 
   return (
     <Collapsible
-      title={title}
+      title={"Prices"}
       defaultOpen={false}
       className="group/collapsible"
     >
@@ -81,7 +89,7 @@ export function SliderSidebarGroup({ title }: Props) {
           className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
         >
           <CollapsibleTrigger>
-            {title}{" "}
+            {"Prices"}{" "}
             <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
           </CollapsibleTrigger>
         </SidebarGroupLabel>
@@ -98,16 +106,12 @@ export function SliderSidebarGroup({ title }: Props) {
             />
             <div className="flex flex-row gap-2">
               <Input
-                // className={isLowInvalid ? "border-destructive" : ""}
-                // aria-invalid={isLowInvalid}
                 type="number"
                 placeholder="Low"
                 value={lowInputValue}
                 readOnly
               />
               <Input
-                // className={isHighInvalid ? "border-destructive" : ""}
-                // aria-invalid={isHighInvalid}
                 type="number"
                 placeholder="High"
                 value={highInputValue}
