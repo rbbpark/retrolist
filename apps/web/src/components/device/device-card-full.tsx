@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 export function DeviceCardFull({ device }: { device: DeviceFullView }) {
   const releaseDate = new Date(device.release_date);
@@ -23,7 +24,11 @@ export function DeviceCardFull({ device }: { device: DeviceFullView }) {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>{device.device_name}</CardTitle>
+        <CardTitle>
+          <Link href={`/device/${device.id}`} className="hover:underline">
+            {device.device_name}
+          </Link>
+        </CardTitle>
         <CardDescription>{device.brand}</CardDescription>
       </CardHeader>
       <CardContent>
