@@ -5,6 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { BackButton } from "@/components/back-button";
+import { CompatibilityBadges } from "@/components/device/compatibility-badges";
+import { ControlBadges } from "@/components/device/control-badges";
+import { ConnectivityBadges } from "@/components/device/connectivity-badges";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const device: Device = await fetchDeviceById(params.id);
@@ -73,52 +76,34 @@ export default async function Page({ params }: { params: { id: string } }) {
           <CardTitle>Emulation Capabilities</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {Object.entries(device)
-              .filter(([key]) =>
-                [
-                  "gbc",
-                  "nes",
-                  "genesis",
-                  "gba",
-                  "snes",
-                  "psx",
-                  "nds",
-                  "n64",
-                  "dreamcast",
-                  "psp",
-                  "saturn",
-                  "ngc",
-                  "wii",
-                  "n3ds",
-                  "ps2",
-                  "wiiu",
-                  "switch",
-                  "ps3",
-                ].includes(key)
-              )
-              .map(([key, value]) => (
-                <div key={key} className="flex items-center gap-2">
-                  <span className="font-medium">{key.toUpperCase()}:</span>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-3 w-3 rounded-full ${
-                          i < (value as number) ? "bg-green-500" : "bg-gray-200"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
+          <div className="space-y-4">
+            <CompatibilityBadges
+              gbc={device.gbc}
+              nes={device.nes}
+              genesis={device.genesis}
+              gba={device.gba}
+              snes={device.snes}
+              psx={device.psx}
+              nds={device.nds}
+              n64={device.n64}
+              dreamcast={device.dreamcast}
+              psp={device.psp}
+              saturn={device.saturn}
+              ngc={device.ngc}
+              wii={device.wii}
+              n3ds={device.n3ds}
+              ps2={device.ps2}
+              wiiu={device.wiiu}
+              switch={device.switch}
+              ps3={device.ps3}
+            />
+            {device.emulation_desc && (
+              <div className="mt-4">
+                <h3 className="mb-2 font-semibold">Additional Notes</h3>
+                <p>{`"${device.emulation_desc}"`}</p>
+              </div>
+            )}
           </div>
-          {device.emulation_desc && (
-            <div className="mt-4">
-              <h3 className="mb-2 font-semibold">Additional Notes</h3>
-              <p>{`"${device.emulation_desc}"`}</p>
-            </div>
-          )}
         </CardContent>
       </Card>
 
@@ -147,14 +132,16 @@ export default async function Page({ params }: { params: { id: string } }) {
         <CardContent className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="mb-2 font-semibold">Input Methods</h3>
-            <div className="my-2 flex flex-wrap gap-2">
-              {device.has_analogs && <Badge>Analog Sticks</Badge>}
-              {device.has_dual_analogs && <Badge>Dual Analog</Badge>}
-              {device.has_hall_analogs && <Badge>Hall Effect</Badge>}
-              {device.has_l3_r3 && <Badge>L3/R3</Badge>}
-              {device.has_l2_r2 && <Badge>L2/R2</Badge>}
-              {device.has_analog_triggers && <Badge>Analog Triggers</Badge>}
-              {device.has_shoulder_buttons && <Badge>Shoulder Buttons</Badge>}
+            <div className="my-2">
+              <ControlBadges
+                hasAnalogs={device.has_analogs}
+                hasDualAnalogs={device.has_dual_analogs}
+                hasHallAnalogs={device.has_hall_analogs}
+                hasL3R3={device.has_l3_r3}
+                hasL2R2={device.has_l2_r2}
+                hasAnalogTriggers={device.has_analog_triggers}
+                hasShoulderButtons={device.has_shoulder_buttons}
+              />
             </div>
             <p>D-Pad: {device.dpad_raw}</p>
             <p>Face Buttons: {device.face_buttons}</p>
@@ -227,15 +214,17 @@ export default async function Page({ params }: { params: { id: string } }) {
         <CardContent className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Available Connections</h3>
-            <div className="my-2 flex flex-wrap gap-2">
-              {device.has_wifi && <Badge>Wi-Fi</Badge>}
-              {device.has_bt && <Badge>Bluetooth</Badge>}
-              {device.has_lte && <Badge>LTE</Badge>}
-              {device.has_usb_otg && <Badge>USB OTG</Badge>}
-              {device.has_thunderbolt && <Badge>Thunderbolt</Badge>}
-              {device.has_video_output && <Badge>Video Output</Badge>}
-              {device.has_audio_output && <Badge>Audio Output</Badge>}
-              {device.has_rumble && <Badge>Rumble</Badge>}
+            <div className="my-2">
+              <ConnectivityBadges
+                hasWifi={device.has_wifi}
+                hasBt={device.has_bt}
+                hasLte={device.has_lte}
+                hasUsbOtg={device.has_usb_otg}
+                hasThunderbolt={device.has_thunderbolt}
+                hasVideoOutput={device.has_video_output ?? undefined}
+                hasAudioOutput={device.has_audio_output}
+                hasRumble={device.has_rumble ?? undefined}
+              />
             </div>
             <h3 className="font-semibold">Notes</h3>
             {device.connectivity_raw && <p>{`"${device.connectivity_raw}"`}</p>}

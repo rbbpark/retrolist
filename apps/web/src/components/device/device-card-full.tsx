@@ -9,26 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import Image from "next/image";
 import Link from "next/link";
+import { CompatibilityBadges } from "./compatibility-badges";
+import { ControlBadges } from "./control-badges";
+import { ConnectivityBadges } from "./connectivity-badges";
 
 interface DeviceCardFullProps {
   device: DeviceFullView;
   className?: string;
 }
-
-const getCompatibilityColor = (rating: number) => {
-  if (rating >= 4) return "bg-green-500";
-  if (rating >= 3) return "bg-yellow-500";
-  if (rating >= 2) return "bg-orange-500";
-  return "bg-red-500";
-};
 
 export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
   const releaseDate = new Date(device.release_date);
@@ -39,27 +29,6 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
   const formattedPrice = device.price_high
     ? `$${device.price_low} - $${device.price_high}`
     : `$${device.price_low}`;
-
-  const compatibilityRatings = [
-    { name: "GBC", rating: device.gbc },
-    { name: "NES", rating: device.nes },
-    { name: "Genesis", rating: device.genesis },
-    { name: "GBA", rating: device.gba },
-    { name: "SNES", rating: device.snes },
-    { name: "PSX", rating: device.psx },
-    { name: "NDS", rating: device.nds },
-    { name: "N64", rating: device.n64 },
-    { name: "Dreamcast", rating: device.dreamcast },
-    { name: "PSP", rating: device.psp },
-    { name: "Saturn", rating: device.saturn },
-    { name: "NGC", rating: device.ngc },
-    { name: "Wii", rating: device.wii },
-    { name: "3DS", rating: device.n3ds },
-    { name: "PS2", rating: device.ps2 },
-    { name: "WiiU", rating: device.wiiu },
-    { name: "Switch", rating: device.switch },
-    { name: "PS3", rating: device.ps3 },
-  ].filter(({ rating }) => rating > 0);
 
   return (
     <Card className={`w-[350px] ${className}`}>
@@ -109,68 +78,55 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
           {/* Emulation */}
           <div className="mt-2">
             <div className="mb-1 text-sm font-medium">Emulation:</div>
-            <div className="flex flex-wrap gap-1">
-              <TooltipProvider>
-                {compatibilityRatings.map(({ name, rating }) => (
-                  <Tooltip key={name}>
-                    <TooltipTrigger asChild>
-                      <Badge
-                        variant="secondary"
-                        className={`${getCompatibilityColor(rating)} text-white`}
-                      >
-                        {name}
-                      </Badge>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Compatibility Rating: {rating}/5</p>
-                    </TooltipContent>
-                  </Tooltip>
-                ))}
-              </TooltipProvider>
-            </div>
+            <CompatibilityBadges
+              gbc={device.gbc}
+              nes={device.nes}
+              genesis={device.genesis}
+              gba={device.gba}
+              snes={device.snes}
+              psx={device.psx}
+              nds={device.nds}
+              n64={device.n64}
+              dreamcast={device.dreamcast}
+              psp={device.psp}
+              saturn={device.saturn}
+              ngc={device.ngc}
+              wii={device.wii}
+              n3ds={device.n3ds}
+              ps2={device.ps2}
+              wiiu={device.wiiu}
+              switch={device.switch}
+              ps3={device.ps3}
+            />
           </div>
 
           {/* Control Features */}
           <div className="mt-2">
             <div className="mb-1 text-sm font-medium">Controls:</div>
-            <div className="flex flex-wrap gap-1">
-              {device.has_analogs && <Badge variant="secondary">Analog</Badge>}
-              {device.has_dual_analogs && (
-                <Badge variant="secondary">Dual Analog</Badge>
-              )}
-              {device.has_hall_analogs && (
-                <Badge variant="secondary">Hall Effect</Badge>
-              )}
-              {device.has_l3_r3 && <Badge variant="secondary">L3/R3</Badge>}
-              {device.has_l2_r2 && <Badge variant="secondary">L2/R2</Badge>}
-              {device.has_analog_triggers && (
-                <Badge variant="secondary">Analog Triggers</Badge>
-              )}
-              {device.has_shoulder_buttons && (
-                <Badge variant="secondary">Shoulder Buttons</Badge>
-              )}
-            </div>
+            <ControlBadges
+              hasAnalogs={device.has_analogs}
+              hasDualAnalogs={device.has_dual_analogs}
+              hasHallAnalogs={device.has_hall_analogs}
+              hasL3R3={device.has_l3_r3}
+              hasL2R2={device.has_l2_r2}
+              hasAnalogTriggers={device.has_analog_triggers}
+              hasShoulderButtons={device.has_shoulder_buttons}
+            />
           </div>
 
           {/* Connectivity Features */}
           <div className="mt-2">
             <div className="mb-1 text-sm font-medium">Connectivity:</div>
-            <div className="flex flex-wrap gap-1">
-              {device.has_wifi && <Badge variant="secondary">Wi-Fi</Badge>}
-              {device.has_bt && <Badge variant="secondary">Bluetooth</Badge>}
-              {device.has_lte && <Badge variant="secondary">LTE</Badge>}
-              {device.has_usb_otg && <Badge variant="secondary">USB OTG</Badge>}
-              {device.has_thunderbolt && (
-                <Badge variant="secondary">Thunderbolt</Badge>
-              )}
-              {device.has_video_output && (
-                <Badge variant="secondary">Video Output</Badge>
-              )}
-              {device.has_audio_output && (
-                <Badge variant="secondary">Audio Output</Badge>
-              )}
-              {device.has_rumble && <Badge variant="secondary">Rumble</Badge>}
-            </div>
+            <ConnectivityBadges
+              hasWifi={device.has_wifi}
+              hasBt={device.has_bt}
+              hasLte={device.has_lte}
+              hasUsbOtg={device.has_usb_otg}
+              hasThunderbolt={device.has_thunderbolt}
+              hasVideoOutput={device.has_video_output ?? undefined}
+              hasAudioOutput={device.has_audio_output}
+              hasRumble={device.has_rumble ?? undefined}
+            />
           </div>
         </div>
       </CardContent>
