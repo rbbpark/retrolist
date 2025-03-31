@@ -34,7 +34,17 @@ export default async function Page(props: {
             <SortSelect sortBy={sort_by} order={order} />
           </div>
         </div>
-        <Suspense fallback={<Skeleton className="h-[250px] w-[250px]" />}>
+        <Suspense
+          fallback={
+            <div className="flex flex-col items-center">
+              <div className="container grid grid-cols-4 gap-4 p-4">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <Skeleton key={i} className="h-[250px] w-full" />
+                ))}
+              </div>
+            </div>
+          }
+        >
           <DeviceGrid queryString={queryString} />
         </Suspense>
       </main>

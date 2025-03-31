@@ -34,7 +34,14 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
     <Card className={`w-[350px] ${className}`}>
       <CardHeader>
         <div className="flex items-center justify-start gap-2">
-          <CardDescription>{device.brand}</CardDescription>
+          <CardDescription>
+            <Link
+              href={`/device/?page=1&search=${device.brand}`}
+              className="hover:underline"
+            >
+              {device.brand}
+            </Link>
+          </CardDescription>
           <CardTitle>
             <Link href={`/device/${device.id}`} className="hover:underline">
               {device.device_name}
@@ -45,17 +52,19 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
       </CardHeader>
       <CardContent>
         <div className="mb-4 flex justify-center">
-          <Image
-            src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
-            width={150}
-            height={150}
-            quality={100}
-            alt="Picture of the device"
-            style={{ width: "auto", height: "150px", objectFit: "contain" }}
-          />
+          <Link href={`/device/${device.id}`}>
+            <Image
+              src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
+              width={150}
+              height={150}
+              quality={100}
+              alt="Picture of the device"
+              style={{ width: "auto", height: "150px", objectFit: "contain" }}
+            />
+          </Link>
         </div>
 
-        <div className="ml-2 space-y-1">
+        <div className="space-y-1">
           <div className="text-sm">
             <div>
               <span className="font-medium">Form Factor:</span>{" "}
@@ -130,7 +139,7 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-center">
+      <CardFooter className="mt-auto flex justify-center">
         <CardDescription className="text-lg font-semibold">
           {formattedPrice}
         </CardDescription>
