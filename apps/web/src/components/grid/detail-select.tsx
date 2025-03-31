@@ -25,7 +25,6 @@ export function DetailSelect({ detail = "full" }: Props) {
   const handleValueChange = (value: string) => {
     // update URL
     const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
     params.set("detail", value);
     replace(`${pathname}?${params.toString()}`);
   };

@@ -25,8 +25,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
       {/* About Section */}
       <Card>
-        <CardContent className="pt-6">
-          <div className="grid grid-cols-2 gap-8">
+        <CardContent className="p-6">
+          <div className="flex flex-row justify-center gap-16">
             <div className="flex justify-center">
               <Image
                 src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
@@ -35,14 +35,14 @@ export default async function Page({ params }: { params: { id: string } }) {
                 quality={100}
                 alt="Picture of the device"
                 style={{
-                  width: "auto",
+                  width: "300px",
                   maxHeight: "300px",
                   objectFit: "contain",
                   height: "auto",
                 }}
               />
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col justify-center gap-4">
               <div className="space-y-2">
                 <Label>Form Factor</Label>
                 <Badge variant="secondary" className="text-lg">

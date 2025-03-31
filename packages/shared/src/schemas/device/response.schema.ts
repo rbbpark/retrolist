@@ -10,6 +10,7 @@ export const DeviceSchemaCompact = DeviceSchema.pick({
   brand: true,
   form_factor: true,
   screen_size_inches: true,
+  release_date: true,
 });
 export type DeviceCompactView = z.infer<typeof DeviceSchemaCompact>;
 
