@@ -11,9 +11,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
-import { CompatibilityBadges } from "./compatibility-badges";
-import { ControlBadges } from "./control-badges";
-import { ConnectivityBadges } from "./connectivity-badges";
+import { CompatibilityBadges } from "../badge/compatibility-badges";
+import { ControlBadges } from "../badge/control-badges";
+import { ConnectivityBadges } from "../badge/connectivity-badges";
 
 interface DeviceCardFullProps {
   device: DeviceFullView;

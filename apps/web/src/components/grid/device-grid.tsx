@@ -1,8 +1,8 @@
 import { fetchDevices } from "@/lib/data";
 import { DeviceCompactView, DeviceFullView } from "@retrolist/shared";
 import React from "react";
-import { DeviceCardFull } from "./device-card-full";
-import { AppPagination } from "../app-pagination";
+import { DeviceCardFull } from "../device/card/device-card-full";
+import { AppPagination } from "./app-pagination";
 
 const gridStyles = {
   display: "grid",

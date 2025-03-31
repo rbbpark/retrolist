@@ -1,15 +1,15 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
-import { SortSelect } from "@/components/device/sort-select";
-import { DeviceGrid } from "@/components/device/device-grid";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SortSelect } from "@/components/grid/sort-select";
+import { DeviceGrid } from "@/components/grid/device-grid";
 import { Suspense } from "react";
-import { SearchInput } from "@/components/device/search-input";
+import { SearchInput } from "@/components/grid/search-input";
 
 import { DevicesQuerySchema } from "@retrolist/shared";
 import { getQueryString } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DetailSelect } from "@/components/device/detail-select";
+import { DetailSelect } from "@/components/grid/detail-select";
 
 export default async function Page(props: {
   searchParams: { [key: string]: string | string[] | undefined };

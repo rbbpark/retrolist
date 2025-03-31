@@ -4,10 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { BackButton } from "@/components/back-button";
-import { CompatibilityBadges } from "@/components/device/compatibility-badges";
-import { ControlBadges } from "@/components/device/control-badges";
-import { ConnectivityBadges } from "@/components/device/connectivity-badges";
+import { BackButton } from "@/components/layout/back-button";
+import { CompatibilityBadges } from "@/components/device/badge/compatibility-badges";
+import { ControlBadges } from "@/components/device/badge/control-badges";
+import { ConnectivityBadges } from "@/components/device/badge/connectivity-badges";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const device: Device = await fetchDeviceById(params.id);
