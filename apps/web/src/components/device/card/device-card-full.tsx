@@ -51,15 +51,15 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
         <CardDescription>{formattedDate}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-4 flex justify-center">
+        <div className="mb-2 flex justify-center">
           <Link href={`/device/${device.id}`}>
             <Image
               src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
-              width={150}
-              height={150}
+              width={200}
+              height={200}
               quality={100}
               alt="Picture of the device"
-              style={{ width: "auto", height: "150px", objectFit: "contain" }}
+              style={{ width: "200px", height: "200px", objectFit: "contain" }}
             />
           </Link>
         </div>
@@ -140,9 +140,7 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
         </div>
       </CardContent>
       <CardFooter className="mt-auto flex justify-center">
-        <CardDescription className="text-lg font-semibold">
-          {formattedPrice}
-        </CardDescription>
+        <p className="text-lg font-semibold">{formattedPrice} </p>
       </CardFooter>
     </Card>
   );
