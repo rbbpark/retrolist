@@ -51,7 +51,7 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
         <CardDescription>{formattedDate}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-2 flex justify-center">
+        <div className="mb-4 flex justify-center">
           <Link href={`/device/${device.id}`}>
             <Image
               src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
