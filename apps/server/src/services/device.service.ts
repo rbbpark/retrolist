@@ -87,7 +87,7 @@ function applySort<T>(
 
 export async function getDevices({
   page = 1,
-  page_size = 10,
+  page_size = 12,
   detail = "full",
   search,
   sort_by = "release_date",

@@ -18,13 +18,17 @@ export function DeviceCardFull({ device }: { device: DeviceFullView }) {
         <CardDescription>{device.brand}</CardDescription>
       </CardHeader>
       <CardContent>
-        {" "}
-        <Image
-          src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
-          width={500}
-          height={500}
-          alt="Picture of the device"
-        />
+        <div className="flex justify-center">
+          <Image
+            src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
+            width={150}
+            height={150}
+            quality={100}
+            alt="Picture of the device"
+            style={{ width: "auto", height: "150px", objectFit: "contain" }}
+          />
+        </div>
+
         <CardDescription>{device.release_date}</CardDescription>
         <CardDescription>{device.price_low}</CardDescription>
       </CardContent>

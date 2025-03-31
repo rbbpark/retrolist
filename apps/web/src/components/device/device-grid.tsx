@@ -4,6 +4,13 @@ import React from "react";
 import { DeviceCardFull } from "./device-card-full";
 import { AppPagination } from "../app-pagination";
 
+const gridStyles = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, 350px)",
+  gap: "15px",
+  justifyContent: "center",
+};
+
 export async function DeviceGrid({ queryString }: { queryString: string }) {
   const response = await fetchDevices(queryString);
 
@@ -24,8 +31,8 @@ export async function DeviceGrid({ queryString }: { queryString: string }) {
   if (isFullMode) {
     const fullDevices = response.data as DeviceFullView[];
     return (
-      <div className="flex flex-col">
-        <div className="flex flex-grow flex-row flex-wrap gap-4">
+      <div className="container mx-auto flex h-full flex-col justify-between px-8">
+        <div style={gridStyles}>
           {fullDevices.map((device: DeviceFullView) => (
             <DeviceCardFull device={device} key={device.id} />
           ))}
