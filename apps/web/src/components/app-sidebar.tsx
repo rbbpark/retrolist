@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { RadioFilterSidebarGroup } from "./sidebar/radio-filter-sidebar-group";
 import { DeviceSchema, FilterField } from "@retrolist/shared";
@@ -17,6 +18,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { PriceSliderSidebarGroup } from "./sidebar/price-slider-sidebar-group";
 import { ScreenSizeSliderSidebarGroup } from "./sidebar/screen-size-slider-sidebar-group";
+import { Funnel } from "lucide-react";
 
 export function AppSidebar({
   filters,
@@ -152,7 +154,11 @@ export function AppSidebar({
 
   return (
     <Sidebar>
-      <SidebarHeader className="h-16 border-b-1"></SidebarHeader>
+      <SidebarHeader className="flex h-16 justify-center border-b-1">
+        <SidebarTrigger className="-ml-1">
+          <Funnel />
+        </SidebarTrigger>
+      </SidebarHeader>
       <SidebarContent className="gap-0 pb-32">
         <PriceSliderSidebarGroup prices={getPriceRangeValues()} />
         <ScreenSizeSliderSidebarGroup

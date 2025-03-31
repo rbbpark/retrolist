@@ -11,10 +11,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { Label } from "../ui/label";
 
 type Props = {
-  sortBy: DevicesQuerySchemaType["sort_by"];
-  order: DevicesQuerySchemaType["order"];
+  sortBy?: DevicesQuerySchemaType["sort_by"];
+  order?: DevicesQuerySchemaType["order"];
 };
 
 type SortOption = {
@@ -42,7 +43,7 @@ const sortOptions: SortOption[] = [
   },
 ];
 
-export function SortSelect({ sortBy, order }: Props) {
+export function SortSelect({ sortBy = "release_date", order = "desc" }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -66,24 +67,27 @@ export function SortSelect({ sortBy, order }: Props) {
   };
 
   return (
-    <Select
-      onValueChange={handleValueChange}
-      value={initialSort ? initialSort.label : ""}
-    >
-      <SelectTrigger className="w-[190px]">
-        <SelectValue placeholder="Sort" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {sortOptions.map((option) => {
-            return (
-              <SelectItem key={option.label} value={option.label}>
-                {option.label}
-              </SelectItem>
-            );
-          })}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="flex items-center space-x-2">
+      <Label htmlFor="detail">Sort: </Label>
+      <Select
+        onValueChange={handleValueChange}
+        value={initialSort ? initialSort.label : ""}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Sort" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {sortOptions.map((option) => {
+              return (
+                <SelectItem key={option.label} value={option.label}>
+                  {option.label}
+                </SelectItem>
+              );
+            })}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

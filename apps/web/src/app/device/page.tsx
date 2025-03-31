@@ -9,6 +9,7 @@ import { SearchInput } from "@/components/device/search-input";
 import { DevicesQuerySchema } from "@retrolist/shared";
 import { getQueryString } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DetailSelect } from "@/components/device/detail-select";
 
 export default async function Page(props: {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -28,6 +29,7 @@ export default async function Page(props: {
         <SiteHeader />
         <div className="m-4 flex flex-wrap justify-center gap-4">
           <SearchInput searchText={search} />
+          <DetailSelect detail={detail} />
           <SortSelect sortBy={sort_by} order={order} />
         </div>
         <Suspense fallback={<Skeleton className="h-[250px] w-[250px]" />}>

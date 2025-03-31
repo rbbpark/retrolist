@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
@@ -11,6 +11,10 @@ export function SearchInput({ searchText }: { searchText?: string }) {
   const { replace } = useRouter();
 
   const [searchQuery, setSearchQuery] = useState(searchText ?? "");
+
+  useEffect(() => {
+    setSearchQuery(searchText ?? "");
+  }, [searchText]);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

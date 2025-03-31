@@ -11,6 +11,15 @@ import {
 import Image from "next/image";
 
 export function DeviceCardFull({ device }: { device: DeviceFullView }) {
+  const releaseDate = new Date(device.release_date);
+  const formattedDate = releaseDate.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+  const formattedPrice = device.price_high
+    ? `$${device.price_low} - $${device.price_high}`
+    : `$${device.price_low}`;
+
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -29,8 +38,8 @@ export function DeviceCardFull({ device }: { device: DeviceFullView }) {
           />
         </div>
 
-        <CardDescription>{device.release_date}</CardDescription>
-        <CardDescription>{device.price_low}</CardDescription>
+        <CardDescription>{formattedDate}</CardDescription>
+        <CardDescription>{formattedPrice}</CardDescription>
       </CardContent>
       <CardFooter className="flex justify-between"></CardFooter>
     </Card>

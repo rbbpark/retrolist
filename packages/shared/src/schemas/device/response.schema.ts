@@ -15,6 +15,7 @@ export const DeviceSchemaFull = DeviceSchema.pick({
   brand: true,
   release_date: true,
   price_low: true,
+  price_high: true,
   image_id: true,
 });
 export type DeviceFullView = z.infer<typeof DeviceSchemaFull>;

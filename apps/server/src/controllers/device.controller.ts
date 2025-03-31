@@ -14,6 +14,7 @@ export const getDevicesHandler = async (req: Request, res: Response) => {
     order,
     filters,
   });
+  console.log(devices);
   return res.send(devices);
 };
 
