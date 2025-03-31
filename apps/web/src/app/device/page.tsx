@@ -29,8 +29,10 @@ export default async function Page(props: {
         <SiteHeader />
         <div className="m-4 flex flex-wrap justify-center gap-4">
           <SearchInput searchText={search} />
-          <DetailSelect detail={detail} />
-          <SortSelect sortBy={sort_by} order={order} />
+          <div className="flex flex-row gap-2">
+            <DetailSelect detail={detail} />
+            <SortSelect sortBy={sort_by} order={order} />
+          </div>
         </div>
         <Suspense fallback={<Skeleton className="h-[250px] w-[250px]" />}>
           <DeviceGrid queryString={queryString} />

@@ -58,7 +58,10 @@ export function CheckboxFilterSidebarGroup({ title, options }: Props) {
         <CollapsibleContent>
           <SidebarGroupContent>
             {options.map((option) => (
-              <div key={option.id} className="m-2 flex items-center space-x-2">
+              <div
+                key={option.id}
+                className="mx-2 my-3 flex items-center space-x-2"
+              >
                 <Checkbox
                   id={option.id}
                   checked={option.value}
