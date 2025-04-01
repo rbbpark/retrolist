@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import createServer from "../../src/utils/server";
+import createServer from "../src/utils/server";
 import {
   DeviceSchema,
   DeviceSchemaCompact,
