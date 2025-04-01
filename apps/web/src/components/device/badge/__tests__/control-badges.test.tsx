@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ControlBadges } from "./control-badges";
+import { ControlBadges } from "../control-badges";
 
 describe("ControlBadges", () => {
   const defaultProps = {

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { DeviceCardCompact } from "./device-card-compact";
+import { DeviceCardCompact } from "../device-card-compact";
 import { DeviceCompactView } from "@retrolist/shared";
 
 const mockDevice = {

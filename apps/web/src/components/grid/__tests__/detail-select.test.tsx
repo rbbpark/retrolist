@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { DetailSelect } from "./detail-select";
+import { DetailSelect } from "../detail-select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { vi, Mock } from "vitest";
 import userEvent from "@testing-library/user-event";

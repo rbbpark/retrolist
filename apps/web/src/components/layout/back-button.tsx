@@ -10,5 +10,9 @@ export function BackButton() {
     router.back();
   };
 
-  return <ChevronLeft onClick={goBack} className="h-8 w-8 cursor-pointer" />;
+  return (
+    <button onClick={goBack} className="h-8 w-8 cursor-pointer">
+      <ChevronLeft className="h-8 w-8" />
+    </button>
+  );
 }

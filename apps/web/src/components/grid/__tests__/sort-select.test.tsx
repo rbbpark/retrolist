@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { SortSelect } from "./sort-select";
+import { SortSelect } from "../sort-select";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { vi, Mock } from "vitest";
 import userEvent from "@testing-library/user-event";

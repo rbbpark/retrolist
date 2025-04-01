@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import { DeviceGrid } from "./device-grid";
+import { DeviceGrid } from "../device-grid";
 import { fetchDevices } from "@/lib/data";
 import { GetDevicesResponseType } from "@retrolist/shared";
 

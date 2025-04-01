@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { DeviceCardFull } from "./device-card-full";
+import { DeviceCardFull } from "../device-card-full";
 import { DeviceFullView } from "@retrolist/shared";
 
 const mockDevice = {

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { CompatibilityBadges } from "./compatibility-badges";
+import { CompatibilityBadges } from "../compatibility-badges";
 
 describe("CompatibilityBadges", () => {
   const defaultProps = {

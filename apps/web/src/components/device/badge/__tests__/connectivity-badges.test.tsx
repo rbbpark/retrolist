@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { ConnectivityBadges } from "./connectivity-badges";
+import { ConnectivityBadges } from "../connectivity-badges";
 
 describe("ConnectivityBadges", () => {
   const defaultProps = {
