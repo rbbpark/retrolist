@@ -20,8 +20,6 @@ export default async function Page(props: {
 
   const queryString = getQueryString(searchParams);
 
-  console.log(filters);
-
   return (
     <SidebarProvider>
       <AppSidebar filters={filters} />

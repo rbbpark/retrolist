@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { vi } from "vitest";
 import { AppPagination } from "../app-pagination";
 import { usePathname, useSearchParams } from "next/navigation";
 
