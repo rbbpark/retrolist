@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  return (
-    <main>
-      <p>Hello world</p>
-    </main>
-  );
+  redirect("/device");
 }

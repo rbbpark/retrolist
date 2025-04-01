@@ -54,9 +54,6 @@ describe("Device Page", () => {
   it("renders all required components", async () => {
     const Result = await Page({ searchParams: mockSearchParams });
     render(Result);
-
-    screen.debug();
-
     expect(screen.getByTestId("app-sidebar")).toBeDefined();
     expect(screen.getByTestId("site-header")).toBeDefined();
     expect(screen.getByTestId("device-grid")).toBeDefined();
