@@ -2,14 +2,14 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 
 interface ConnectivityBadgesProps {
-  hasWifi?: boolean;
-  hasBt?: boolean;
-  hasLte?: boolean;
-  hasUsbOtg?: boolean;
-  hasThunderbolt?: boolean;
-  hasVideoOutput?: boolean;
-  hasAudioOutput?: boolean;
-  hasRumble?: boolean;
+  hasWifi: boolean;
+  hasBt: boolean;
+  hasLte: boolean;
+  hasUsbOtg: boolean;
+  hasThunderbolt: boolean;
+  hasVideoOutput: boolean;
+  hasAudioOutput: boolean;
+  hasDualExternalSD: boolean;
   className?: string;
 }
 
@@ -21,7 +21,7 @@ export function ConnectivityBadges({
   hasThunderbolt,
   hasVideoOutput,
   hasAudioOutput,
-  hasRumble,
+  hasDualExternalSD,
   className,
 }: ConnectivityBadgesProps) {
   return (
@@ -33,7 +33,7 @@ export function ConnectivityBadges({
       {hasThunderbolt && <Badge variant="secondary">Thunderbolt</Badge>}
       {hasVideoOutput && <Badge variant="secondary">Video Output</Badge>}
       {hasAudioOutput && <Badge variant="secondary">Audio Output</Badge>}
-      {hasRumble && <Badge variant="secondary">Rumble</Badge>}
+      {hasDualExternalSD && <Badge variant="secondary">Dual External SD</Badge>}
     </div>
   );
 }

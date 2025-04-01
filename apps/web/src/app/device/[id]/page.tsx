@@ -141,6 +141,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 hasL2R2={device.has_l2_r2}
                 hasAnalogTriggers={device.has_analog_triggers}
                 hasShoulderButtons={device.has_shoulder_buttons}
+                hasRumble={device.has_rumble ?? false}
               />
             </div>
             <p>D-Pad: {device.dpad_raw}</p>
@@ -221,9 +222,9 @@ export default async function Page({ params }: { params: { id: string } }) {
                 hasLte={device.has_lte}
                 hasUsbOtg={device.has_usb_otg}
                 hasThunderbolt={device.has_thunderbolt}
-                hasVideoOutput={device.has_video_output ?? undefined}
+                hasVideoOutput={device.has_video_output ?? false}
                 hasAudioOutput={device.has_audio_output}
-                hasRumble={device.has_rumble ?? undefined}
+                hasDualExternalSD={device.has_dual_external_sd}
               />
             </div>
             <h3 className="font-semibold">Notes</h3>

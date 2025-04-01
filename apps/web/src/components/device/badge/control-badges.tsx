@@ -2,13 +2,14 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 
 interface ControlBadgesProps {
-  hasAnalogs?: boolean;
-  hasDualAnalogs?: boolean;
-  hasHallAnalogs?: boolean;
-  hasL3R3?: boolean;
-  hasL2R2?: boolean;
-  hasAnalogTriggers?: boolean;
-  hasShoulderButtons?: boolean;
+  hasAnalogs: boolean;
+  hasDualAnalogs: boolean;
+  hasHallAnalogs: boolean;
+  hasL3R3: boolean;
+  hasL2R2: boolean;
+  hasAnalogTriggers: boolean;
+  hasShoulderButtons: boolean;
+  hasRumble: boolean;
   className?: string;
 }
 
@@ -20,6 +21,8 @@ export function ControlBadges({
   hasL2R2,
   hasAnalogTriggers,
   hasShoulderButtons,
+  hasRumble,
+
   className,
 }: ControlBadgesProps) {
   return (
@@ -33,6 +36,7 @@ export function ControlBadges({
       {hasShoulderButtons && (
         <Badge variant="secondary">Shoulder Buttons</Badge>
       )}
+      {hasRumble && <Badge variant="secondary">Rumble</Badge>}
     </div>
   );
 }

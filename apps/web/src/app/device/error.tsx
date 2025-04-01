@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
+
 export default function Error({
   error,
   reset,
@@ -25,17 +27,12 @@ export default function Error({
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-4">
       <h1 className="text-4xl font-bold">Something Went Wrong</h1>
       <p className="mt-4 text-gray-600">
         We're sorry, but something went wrong. Please try again.
       </p>
-      <button
-        className="bg-primary hover:bg-primary/90 mt-8 rounded-md px-4 py-2 text-white"
-        onClick={handleReset}
-      >
-        Return
-      </button>
+      <Button onClick={handleReset}>Return</Button>
     </div>
   );
 }

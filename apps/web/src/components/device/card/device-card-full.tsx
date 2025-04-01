@@ -120,6 +120,7 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
               hasL2R2={device.has_l2_r2}
               hasAnalogTriggers={device.has_analog_triggers}
               hasShoulderButtons={device.has_shoulder_buttons}
+              hasRumble={device.has_rumble ?? false}
             />
           </div>
 
@@ -132,9 +133,9 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
               hasLte={device.has_lte}
               hasUsbOtg={device.has_usb_otg}
               hasThunderbolt={device.has_thunderbolt}
-              hasVideoOutput={device.has_video_output ?? undefined}
+              hasVideoOutput={device.has_video_output ?? false}
+              hasDualExternalSD={device.has_dual_external_sd}
               hasAudioOutput={device.has_audio_output}
-              hasRumble={device.has_rumble ?? undefined}
             />
           </div>
         </div>

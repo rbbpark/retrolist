@@ -67,6 +67,7 @@ export const DeviceSchemaFull = DeviceSchema.pick({
   has_video_output: true,
   has_audio_output: true,
   has_rumble: true,
+  has_dual_external_sd: true,
 });
 export type DeviceFullView = z.infer<typeof DeviceSchemaFull>;
 
