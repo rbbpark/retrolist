@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { SiteHeader } from "./site-header";
+import { SiteHeader } from "../site-header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 // Mock window.matchMedia

@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { CheckboxFilterSidebarGroup } from "../checkbox-filter-sidebar-group";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { userEvent } from "@testing-library/user-event";
 
 // Mock the next/navigation hooks
 vi.mock("next/navigation", () => ({
@@ -27,28 +28,42 @@ describe("CheckboxFilterSidebarGroup", () => {
     (usePathname as any).mockReturnValue(mockPathname);
   });
 
-  it("renders with the correct title and options", () => {
+  it("renders with the correct title and options", async () => {
+    const user = userEvent.setup();
     render(
       <CheckboxFilterSidebarGroup title="Test Group" options={mockOptions} />
     );
 
-    expect(screen.getByText("Test Group")).toBeInTheDocument();
+    // click on collapsible header
+    const testGroup = screen.getByText("Test Group");
+    expect(testGroup).toBeInTheDocument();
+    await user.click(testGroup);
+
     expect(screen.getByText("Option 1")).toBeInTheDocument();
     expect(screen.getByText("Option 2")).toBeInTheDocument();
   });
 
-  it("handles checkbox state changes correctly", () => {
+  it("handles checkbox state changes correctly", async () => {
+    const user = userEvent.setup();
     render(
       <CheckboxFilterSidebarGroup title="Test Group" options={mockOptions} />
     );
 
-    const option1Checkbox = screen.getByRole("checkbox", { name: "Option 1" });
-    fireEvent.click(option1Checkbox);
+    // click on collapsible header
+    const testGroup = screen.getByText("Test Group");
+    expect(testGroup).toBeInTheDocument();
+    await user.click(testGroup);
+
+    // find button before Option 1
+    const option1 = screen.getByText("Option 1").previousSibling;
+    await user.click(option1 as Element);
 
     expect(mockReplace).toHaveBeenCalledWith("/test?page=1&option1=true");
   });
 
-  it("removes parameter when checkbox is unchecked", () => {
+  it("removes parameter when checkbox is unchecked", async () => {
+    const user = userEvent.setup();
+
     // Set up initial state with option2 checked
     mockSearchParams.set("option2", "true");
 
@@ -56,22 +71,14 @@ describe("CheckboxFilterSidebarGroup", () => {
       <CheckboxFilterSidebarGroup title="Test Group" options={mockOptions} />
     );
 
-    const option2Checkbox = screen.getByRole("checkbox", { name: "Option 2" });
-    fireEvent.click(option2Checkbox);
+    // click on collapsible header
+    const testGroup = screen.getByText("Test Group");
+    expect(testGroup).toBeInTheDocument();
+    await user.click(testGroup);
+
+    const option2 = screen.getByText("Option 2").previousSibling;
+    await user.click(option2 as Element);
 
     expect(mockReplace).toHaveBeenCalledWith("/test?page=1");
-  });
-
-  it("toggles collapsible section when clicking the trigger", () => {
-    render(
-      <CheckboxFilterSidebarGroup title="Test Group" options={mockOptions} />
-    );
-
-    const trigger = screen.getByText("Test Group");
-    fireEvent.click(trigger);
-
-    // Check if the content is visible
-    expect(screen.getByText("Option 1")).toBeVisible();
-    expect(screen.getByText("Option 2")).toBeVisible();
   });
 });
