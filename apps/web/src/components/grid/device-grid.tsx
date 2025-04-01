@@ -11,7 +11,11 @@ export async function DeviceGrid({ queryString }: { queryString: string }) {
 
   if (response.data.length === 0) {
     // TODO
-    return <div>No devices found</div>;
+    return (
+      <div className="container mx-auto flex h-full w-full items-center justify-center">
+        No devices found
+      </div>
+    );
   }
 
   const paginationData = {
