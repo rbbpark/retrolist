@@ -1,6 +1,0 @@
-.device-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 350px);
-  gap: 15px;
-  justify-content: center;
-}

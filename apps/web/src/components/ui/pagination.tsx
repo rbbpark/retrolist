@@ -110,6 +110,7 @@ function PaginationEllipsis({
   return (
     <span
       aria-hidden
+      data-testid="pagination-ellipsis"
       data-slot="pagination-ellipsis"
       className={cn("flex size-9 items-center justify-center", className)}
       {...props}
