@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { SearchInput } from "../search-input";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { vi, Mock } from "vitest";

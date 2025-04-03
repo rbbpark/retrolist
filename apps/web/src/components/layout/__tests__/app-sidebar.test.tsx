@@ -1,6 +1,6 @@
 import { FilterField } from "@retrolist/shared";
 import { AppSidebar } from "../app-sidebar";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { vi, Mock } from "vitest";

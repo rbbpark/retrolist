@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { SliderSidebarGroup } from "@/components/sidebar/slider-sidebar-group";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import userEvent from "@testing-library/user-event";

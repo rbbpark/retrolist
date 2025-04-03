@@ -12,7 +12,6 @@ import {
   SidebarGroupLabel,
 } from "../ui/sidebar";
 import { ChevronRight } from "lucide-react";
-import { Label } from "../ui/label";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Checkbox } from "../ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";

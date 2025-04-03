@@ -1,8 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/ui/button";
 
 export default function Error({
@@ -16,8 +14,6 @@ export default function Error({
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
-
-  const router = useRouter();
 
   const handleReset = () => {
     // First reset the error state

@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Page from "../page";
-import * as utils from "@/lib/utils";
 import React from "react";
 
 // Mock the required components
