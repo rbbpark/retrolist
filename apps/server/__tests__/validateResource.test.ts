@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import validate from "../src/middleware/validateResource";
+import { expect, describe, beforeEach, it, vi } from "vitest";
 
 describe("Validate Resource Middleware", () => {
   let mockRequest: Partial<Request>;
@@ -15,11 +16,11 @@ describe("Validate Resource Middleware", () => {
     };
 
     mockResponse = {
-      status: jest.fn().mockReturnThis(),
-      send: jest.fn(),
+      status: vi.fn().mockReturnThis(),
+      send: vi.fn(),
     };
 
-    nextFunction = jest.fn();
+    nextFunction = vi.fn() as unknown as NextFunction;
   });
 
   it("should call next() when validation passes", () => {

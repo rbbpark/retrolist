@@ -5,6 +5,7 @@ import {
   DeviceSchemaCompact,
   DeviceSchemaFull,
 } from "@retrolist/shared";
+import { expect, describe, it } from "vitest";
 
 const app = createServer();
 
@@ -37,7 +38,7 @@ describe("device", () => {
         expect(statusCode).toBe(200);
         expect(body.data).toBeDefined();
         expect(body.pagination).toBeDefined();
-        expect(body.data.length).toBe(10);
+        expect(body.data.length).toBe(12);
         // validate each device object
         for (const device of body.data) {
           const parsed = DeviceSchemaFull.safeParse(device);
