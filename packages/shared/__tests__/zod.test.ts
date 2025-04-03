@@ -72,7 +72,6 @@ describe("Common Schema Transforms", () => {
     });
 
     xit("should throw an error for empty string", () => {
-      console.log(stringToNumber.parse(""));
       expect(() => stringToNumber.parse("")).toThrow();
     });
 

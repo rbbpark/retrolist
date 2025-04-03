@@ -9,7 +9,6 @@ export async function fetchDevices(
   queryString: string
 ): Promise<GetDevicesResponseType> {
   try {
-    console.log("Fetching devices data...");
     const response = await fetch(
       `http://localhost:3001/api/device?${queryString}`
     );
@@ -24,7 +23,6 @@ export async function fetchDevices(
       console.error(validatedData.error.issues);
       throw new Error("Validation failed");
     }
-    console.log("Fetching success");
     return data;
   } catch (error) {
     console.error("Fetching Error:", error);
@@ -34,7 +32,6 @@ export async function fetchDevices(
 
 export async function fetchDeviceById(id: string): Promise<Device> {
   try {
-    console.log("Fetching a device...");
     // await new Promise((resolve) => setTimeout(resolve, 3000));
     const response = await fetch(`http://localhost:3001/api/device/${id}`);
     if (!response.ok) {
@@ -48,7 +45,6 @@ export async function fetchDeviceById(id: string): Promise<Device> {
       console.error(validatedData.error.issues);
       throw new Error("Validation failed");
     }
-    console.log("Fetching success");
     return data;
   } catch (error) {
     console.error("Fetching Error:", error);
