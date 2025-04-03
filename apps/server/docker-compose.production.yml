@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  shared:
+    build:
+      context: ../..
+      dockerfile: packages/shared/Dockerfile
+    networks:
+      - retrolist-network
+
+  server:
+    build:
+      context: ../..
+      dockerfile: apps/server/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_PORT=${DATABASE_PORT}
+    depends_on:
+      - shared
+    networks:
+      - retrolist-network
+    restart: unless-stopped
+
+networks:
+  retrolist-network:
+    driver: bridge

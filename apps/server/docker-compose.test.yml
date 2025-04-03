@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  shared:
+    build:
+      context: ../..
+      dockerfile: packages/shared/Dockerfile
+    volumes:
+      - ../../packages/shared:/usr/src/app
+    networks:
+      - retrolist-network
+
   server:
     build:
       context: ../..
@@ -16,6 +25,9 @@ services:
       - DATABASE_PORT=5432
     depends_on:
       - postgres
+      - shared
+    volumes:
+      - ../../packages/shared:/usr/src/app/packages/shared
     networks:
       - retrolist-network
 
@@ -28,7 +40,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
       - ./db/seed:/docker-entrypoint-initdb.d/seed
     networks:
@@ -37,6 +48,3 @@ services:
 networks:
   retrolist-network:
     driver: bridge
-
-volumes:
-  postgres_data:

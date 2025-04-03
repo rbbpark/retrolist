@@ -5,18 +5,11 @@ WORKDIR /usr/src/app
 # Copy root package files
 COPY package.json package-lock.json ./
 
-# Copy the shared package
-COPY packages/shared ./packages/shared
-
 # Copy the server app
 COPY apps/server ./apps/server
 
 # Install dependencies
 RUN npm ci
-
-# Build the shared package
-WORKDIR /usr/src/app/packages/shared
-RUN npm run build
 
 # Build the server app
 WORKDIR /usr/src/app/apps/server
