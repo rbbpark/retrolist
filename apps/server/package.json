@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "seed": "ts-node src/db/seed/seed.ts"
   },
   "dependencies": {
     "@retrolist/shared": "^1.0.0",
