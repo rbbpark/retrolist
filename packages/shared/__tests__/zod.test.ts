@@ -1,11 +1,12 @@
+import { describe, it, expect } from "vitest";
 import { stringToBoolean, stringToNumber } from "../src/schemas/utils.schema";
+import { DeviceSchema } from "../src/schemas/device/device.schema";
 import {
   createBooleanFilter,
   createEnumFilter,
   createNumberFilter,
   createCompatibilityFilter,
-  DeviceSchema,
-} from "../src/schemas/device";
+} from "../src/schemas/device/request.schema";
 
 describe("Common Schema Transforms", () => {
   describe("stringToBoolean", () => {
@@ -69,10 +70,6 @@ describe("Common Schema Transforms", () => {
 
     it("should throw an error for non-numeric strings", () => {
       expect(() => stringToNumber.parse("not-a-number")).toThrow();
-    });
-
-    xit("should throw an error for empty string", () => {
-      expect(() => stringToNumber.parse("")).toThrow();
     });
 
     it("should throw with the expected error message", () => {

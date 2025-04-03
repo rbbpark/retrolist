@@ -10,9 +10,6 @@
     "test:watch": "jest --watchAll",
     "coverage": "jest --coverage"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@retrolist/shared": "^1.0.0",
     "config": "^3.3.12",
