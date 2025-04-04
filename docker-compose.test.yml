@@ -8,8 +8,8 @@ services:
     environment:
       - NODE_ENV=test
       - DATABASE_HOST=postgres
-      - DATABASE_USERNAME=${DATABASE_USERNAME}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USERNAME=test_user
+      - DATABASE_PASSWORD=test_password
       - DATABASE_PORT=5432
     depends_on:
       - postgres
@@ -19,9 +19,9 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
-      - POSTGRES_USER=${DATABASE_USERNAME}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_USERNAME}
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_password
+      - POSTGRES_DB=test_user
     ports:
       - "5432:5432"
     volumes:
