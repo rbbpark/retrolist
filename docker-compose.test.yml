@@ -4,6 +4,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     container_name: server-test
+    working_dir: /app/apps/server
     command: npm run test
     environment:
       - NODE_ENV=test

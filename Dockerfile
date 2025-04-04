@@ -24,6 +24,7 @@ COPY apps/server/ ./
 # Build the server app
 RUN npm run build
 
+# Set working directory back to root
 WORKDIR /app
 
 # Expose the port the app runs on

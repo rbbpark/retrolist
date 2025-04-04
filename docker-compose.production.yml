@@ -3,16 +3,17 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    command: npm run start
-    ports:
-      - "3001:3001"
+    container_name: server-production
+    working_dir: /app/apps/server
+    command: node dist/app.js
     environment:
-      - PORT=3001
       - NODE_ENV=${NODE_ENV}
-      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_HOST=postgres
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_PORT=5432
+    ports:
+      - "3001:3001"
     depends_on:
       - postgres
     networks:
@@ -23,7 +24,7 @@ services:
     environment:
       - POSTGRES_USER=${DATABASE_USERNAME}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_USERNAME}
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
