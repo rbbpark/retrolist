@@ -14,7 +14,10 @@ export const db = new Kysely<DB>({
   dialect: new PostgresDialect({
     pool: new Pool({
       database: "postgres",
-      host: config.get("DATABASE_URL"),
+      host:
+        config.get("NODE_ENV") === "development"
+          ? "localhost"
+          : config.get("DATABASE_URL"),
       port: config.get("DATABASE_PORT"),
       user: config.get("DATABASE_USERNAME"),
       password: config.get("DATABASE_PASSWORD"),
