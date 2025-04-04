@@ -24,8 +24,7 @@ COPY apps/server/ ./
 # Build the server app
 RUN npm run build
 
+WORKDIR /app
+
 # Expose the port the app runs on
 EXPOSE 3001
-
-# Start the application
-CMD ["node", "dist/app.js"]

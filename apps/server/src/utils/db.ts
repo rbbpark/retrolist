@@ -17,7 +17,7 @@ export const db = new Kysely<DB>({
       host:
         config.get("NODE_ENV") === "development"
           ? "localhost"
-          : config.get("DATABASE_URL"),
+          : config.get("DATABASE_HOST"), // use "postgres" as DATABASE_HOST when running in a container
       port: config.get("DATABASE_PORT"),
       user: config.get("DATABASE_USERNAME"),
       password: config.get("DATABASE_PASSWORD"),
