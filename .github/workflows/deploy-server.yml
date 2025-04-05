@@ -1,0 +1,72 @@
+name: Test and Deploy to EC2
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  run-tests-docker-compose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Docker Compose and Test Server
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: docker-compose.test.yml
+          up-flags: --build --exit-code-from server
+          down-flags: --remove-orphans
+
+      - name: Cleanup
+        if: always()
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: docker-compose.test.yml
+          down-flags: --remove-orphans
+
+  deploy:
+    needs: run-tests-docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private.key
+          chmod 600 ~/.ssh/private.key
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Set Environment Variables
+        run: |
+          echo "NODE_ENV=production" >> $GITHUB_ENV
+          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> $GITHUB_ENV
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Create .env file
+        run: |
+          cat << EOF > .env
+          NODE_ENV=production
+          DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+          EOF
+
+      - name: Deploy to EC2
+        run: |
+          # Copy files to EC2
+          scp -i ~/.ssh/private.key -r ./* ubuntu@${{ secrets.EC2_HOST }}:~/app/
+
+          # Copy .env file separately to ensure it's in the right location
+          scp -i ~/.ssh/private.key .env ubuntu@${{ secrets.EC2_HOST }}:~/app/.env
+
+          # Execute deployment commands on EC2
+          ssh -i ~/.ssh/private.key ubuntu@${{ secrets.EC2_HOST }} '
+            cd ~/app && \
+            docker-compose -f docker-compose.production.yml down && \
+            docker-compose -f docker-compose.production.yml pull && \
+            docker-compose -f docker-compose.production.yml up -d
+          '
