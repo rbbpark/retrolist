@@ -5,13 +5,14 @@ import {
   DeviceSchema,
 } from "@retrolist/shared";
 
+// API URL from environment variable, fallback to localhost for development
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 export async function fetchDevices(
   queryString: string
 ): Promise<GetDevicesResponseType> {
   try {
-    const response = await fetch(
-      `http://localhost:3001/api/device?${queryString}`
-    );
+    const response = await fetch(`${API_URL}/api/device?${queryString}`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
@@ -33,7 +34,7 @@ export async function fetchDevices(
 export async function fetchDeviceById(id: string): Promise<Device> {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 3000));
-    const response = await fetch(`http://localhost:3001/api/device/${id}`);
+    const response = await fetch(`${API_URL}/api/device/${id}`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
