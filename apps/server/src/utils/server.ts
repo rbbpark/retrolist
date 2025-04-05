@@ -16,6 +16,12 @@ function createServer() {
   // Use routes
   app.use("/", indexRoutes);
 
+  // AWS ALB
+  app.use((req, res, next) => {
+    app.set("trust proxy", true);
+    next();
+  });
+
   // 404 handler
   app.use((req: Request, res: Response) => {
     res.status(404).json({ message: "Route not found" });

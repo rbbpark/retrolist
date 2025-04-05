@@ -18,6 +18,7 @@ services:
       - postgres
     networks:
       - retrolist-network
+    restart: always
 
   postgres:
     image: postgres:15-alpine
@@ -31,6 +32,7 @@ services:
       - ./db/init:/docker-entrypoint-initdb.d
     networks:
       - retrolist-network
+    restart: always
 
 networks:
   retrolist-network:
