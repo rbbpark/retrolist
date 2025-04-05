@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DetailSelect } from "@/components/grid/detail-select";
 
 export default async function Page(props: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const searchParams = await props.searchParams;
   const { page, page_size, detail, search, sort_by, order, filters } =

@@ -9,7 +9,8 @@ import { CompatibilityBadges } from "@/components/device/badge/compatibility-bad
 import { ControlBadges } from "@/components/device/badge/control-badges";
 import { ConnectivityBadges } from "@/components/device/badge/connectivity-badges";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const device: Device = await fetchDeviceById(params.id);
 
   return (
