@@ -188,7 +188,7 @@ describe("Device Page", () => {
     expect(deviceImage).toBeInTheDocument();
     expect(deviceImage).toHaveAttribute(
       "src",
-      `https://retrolist-images.s3.us-east-1.amazonaws.com/${mockGetDeviceByIdResponse.image_id}.png`
+      `https://domwi9apobskw.cloudfront.net/${mockGetDeviceByIdResponse.image_id}.png`
     );
   });
 });

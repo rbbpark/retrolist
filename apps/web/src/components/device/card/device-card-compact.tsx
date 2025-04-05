@@ -34,7 +34,7 @@ export function DeviceCardCompact({ device }: DeviceCardCompactProps) {
         <CardContent>
           <div className="flex flex-col items-center pb-4">
             <Image
-              src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
+              src={`https://domwi9apobskw.cloudfront.net/${device.image_id}.png`}
               height={150}
               width={150}
               className="rounded-md object-contain"

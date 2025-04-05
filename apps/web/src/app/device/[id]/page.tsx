@@ -30,7 +30,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           <div className="flex flex-row justify-center gap-16">
             <div className="flex justify-center">
               <Image
-                src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
+                src={`https://domwi9apobskw.cloudfront.net/${device.image_id}.png`}
                 width={300}
                 height={300}
                 quality={100}

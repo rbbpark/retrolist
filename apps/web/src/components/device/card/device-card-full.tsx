@@ -53,7 +53,7 @@ export function DeviceCardFull({ device, className }: DeviceCardFullProps) {
         <div className="mb-4 flex justify-center">
           <Link href={`/device/${device.id}`}>
             <Image
-              src={`https://retrolist-images.s3.us-east-1.amazonaws.com/${device.image_id}.png`}
+              src={`https://domwi9apobskw.cloudfront.net/${device.image_id}.png`}
               width={200}
               height={200}
               quality={100}

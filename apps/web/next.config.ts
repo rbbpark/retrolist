@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "retrolist-images.s3.us-east-1.amazonaws.com",
+        hostname: "domwi9apobskw.cloudfront.net",
         port: "",
         pathname: "/**",
       },
