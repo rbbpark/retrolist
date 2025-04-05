@@ -13,7 +13,7 @@ export function SiteHeader() {
         </SidebarTrigger>
         <Separator className="mr-2 !h-4" orientation="vertical" />
         <h1 className="text-base font-medium">
-          <Link href="/device">Retrolist</Link>
+          <Link href="/device">retrolist</Link>
         </h1>
       </div>
       <ModeToggle />

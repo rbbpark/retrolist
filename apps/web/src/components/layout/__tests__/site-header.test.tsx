@@ -37,7 +37,7 @@ describe("SiteHeader", () => {
     expect(sidebarTrigger).toBeInTheDocument();
 
     // Check if Retrolist link exists
-    const retrolistLink = screen.getByRole("link", { name: "Retrolist" });
+    const retrolistLink = screen.getByRole("link", { name: "retrolist" });
     expect(retrolistLink).toBeInTheDocument();
     expect(retrolistLink).toHaveAttribute("href", "/device");
 
